@@ -13,11 +13,23 @@ from . import agents
 
 
 gym.register(
-    id="Template-Pm01-Dirct-Direct-v0",
+    id="Dirct-Pm01-v0",
     entry_point=f"{__name__}.pm01_dirct_env:Pm01DirctEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.pm01_dirct_env_cfg:Pm01DirctEnvCfg",
-        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PPORunnerCfg",
+        "env_cfg_entry_point": f"{__name__}.pm01_dirct_env:Pm01DirctFaltEnvCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PM01FlatPPORunnerCfg",
     },
-)
+) 
+
+
+# gym.register(
+#     id="Template-Velocity-Flat-PM01-Play-v0",
+#     entry_point="isaaclab.envs:ManagerBasedRLEnv",
+#     disable_env_checker=True,
+#     kwargs={
+#         "env_cfg_entry_point": f"{__name__}.flat_env_cfg:PM01FlatEnvCfg_PLAY",
+#         "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PM01FlatPPORunnerCfg",
+#         "skrl_cfg_entry_point": f"{agents.__name__}:skrl_flat_ppo_cfg.yaml",
+#     },
+# )

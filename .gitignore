@@ -8,11 +8,6 @@
 **/*.dmp
 **/.thumbs
 
-# No USD files allowed in the repo
-**/*.usd
-**/*.usda
-**/*.usdc
-**/*.usdz
 
 # Python
 .DS_Store
@@ -29,19 +24,7 @@ docker/.container.cfg
 
 # IDE
 **/.idea/
-**/.vscode/
-# Don't ignore the top-level .vscode directory as it is
-# used to configure VS Code settings
-!.vscode
-
-# Outputs
-**/output/*
-**/outputs/*
-**/videos/*
-**/wandb/*
-**/.neptune/*
-docker/artifacts/
-*.tmp
+.vscode/
 
 # Doc Outputs
 **/docs/_build/*
@@ -52,11 +35,6 @@ _isaac_sim*
 _repo
 _build
 .lastformat
-
-# RL-Games
-**/runs/*
-**/logs/*
-**/recordings/*
 
 # Pre-Trained Checkpoints
 /.pretrained_checkpoints/
@@ -73,3 +51,5 @@ tests/
 # TacSL sensor
 **/tactile_record/*
 **/gelsight_r15_data/*
+logs/
+outputs/
