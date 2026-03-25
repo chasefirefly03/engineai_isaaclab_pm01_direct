@@ -1,0 +1,1527 @@
+--- git status ---
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .gitignore
+	deleted:    logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/events.out.tfevents.1774407737.ubuntu.155907.0
+	deleted:    logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/git/pm01_dirct.diff
+	deleted:    logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/model_0.pt
+	deleted:    logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/agent.yaml
+	deleted:    logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/env.yaml
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+	modified:   "\345\277\253\346\215\267.md"
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/.gitignore b/.gitignore
+index d837711..37be7ed 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -51,5 +51,5 @@ tests/
+ # TacSL sensor
+ **/tactile_record/*
+ **/gelsight_r15_data/*
+-logs/
++**/logs/*
+ outputs/
+diff --git a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/events.out.tfevents.1774407737.ubuntu.155907.0 b/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/events.out.tfevents.1774407737.ubuntu.155907.0
+deleted file mode 100644
+index 7e22be9..0000000
+Binary files a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/events.out.tfevents.1774407737.ubuntu.155907.0 and /dev/null differ
+diff --git a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/git/pm01_dirct.diff b/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/git/pm01_dirct.diff
+deleted file mode 100644
+index 0f7862a..0000000
+--- a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/git/pm01_dirct.diff
++++ /dev/null
+@@ -1,802 +0,0 @@
+---- git status ---
+-On branch main
+-Changes not staged for commit:
+-  (use "git add <file>..." to update what will be committed)
+-  (use "git restore <file>..." to discard changes in working directory)
+-	modified:   .gitignore
+-	modified:   scripts/list_envs.py
+-	modified:   scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc
+-	modified:   source/pm01_dirct/pm01_dirct/tasks/__init__.py
+-	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/__init__.py
+-	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/__init__.py
+-	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+-	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+-	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+-
+-Untracked files:
+-  (use "git add <file>..." to include in what will be committed)
+-	.vscode/browse.vc.db
+-	.vscode/browse.vc.db-shm
+-	.vscode/browse.vc.db-wal
+-	logs/
+-	outputs/
+-	source/pm01_dirct/anymal_c_env.py
+-	source/pm01_dirct/anymal_c_env_cfg.py
+-	source/pm01_dirct/pm01_dirct.egg-info/
+-	source/pm01_dirct/pm01_dirct/__pycache__/
+-	source/pm01_dirct/pm01_dirct/tasks/__pycache__/
+-	source/pm01_dirct/pm01_dirct/tasks/direct/__pycache__/
+-	source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/__pycache__/
+-	source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/__pycache__/
+-	source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01.py
+-	source/pm01_dirct/usd_model/
+-	"\345\277\253\346\215\267.md"
+-
+-no changes added to commit (use "git add" and/or "git commit -a") 
+-
+-
+---- git diff ---
+-diff --git a/.gitignore b/.gitignore
+-index 7afb58e..e69de29 100644
+---- a/.gitignore
+-+++ b/.gitignore
+-@@ -1,75 +0,0 @@
+--# C++
+--**/cmake-build*/
+--**/build*/
+--**/*.so
+--**/*.log*
+--
+--# Omniverse
+--**/*.dmp
+--**/.thumbs
+--
+--# No USD files allowed in the repo
+--**/*.usd
+--**/*.usda
+--**/*.usdc
+--**/*.usdz
+--
+--# Python
+--.DS_Store
+--**/*.egg-info/
+--**/__pycache__/
+--**/.pytest_cache/
+--**/*.pyc
+--**/*.pb
+--
+--# Docker/Singularity
+--**/*.sif
+--docker/cluster/exports/
+--docker/.container.cfg
+--
+--# IDE
+--**/.idea/
+--**/.vscode/
+--# Don't ignore the top-level .vscode directory as it is
+--# used to configure VS Code settings
+--!.vscode
+--
+--# Outputs
+--**/output/*
+--**/outputs/*
+--**/videos/*
+--**/wandb/*
+--**/.neptune/*
+--docker/artifacts/
+--*.tmp
+--
+--# Doc Outputs
+--**/docs/_build/*
+--**/generated/*
+--
+--# Isaac-Sim packman
+--_isaac_sim*
+--_repo
+--_build
+--.lastformat
+--
+--# RL-Games
+--**/runs/*
+--**/logs/*
+--**/recordings/*
+--
+--# Pre-Trained Checkpoints
+--/.pretrained_checkpoints/
+--
+--# Teleop Recorded Dataset
+--/datasets/
+--
+--# Tests
+--tests/
+--
+--# Docker history
+--.isaac-lab-docker-history
+--
+--# TacSL sensor
+--**/tactile_record/*
+--**/gelsight_r15_data/*
+-diff --git a/scripts/list_envs.py b/scripts/list_envs.py
+-index c7879f2..f6640a1 100644
+---- a/scripts/list_envs.py
+-+++ b/scripts/list_envs.py
+-@@ -52,7 +52,7 @@ def main():
+-     index = 0
+-     # acquire all Isaac environments names
+-     for task_spec in gym.registry.values():
+--        if "Template-" in task_spec.id and (args_cli.keyword is None or args_cli.keyword in task_spec.id):
+-+        if "Dirct-Pm01" in task_spec.id and (args_cli.keyword is None or args_cli.keyword in task_spec.id):
+-             # add details to table
+-             table.add_row([index + 1, task_spec.id, task_spec.entry_point, task_spec.kwargs["env_cfg_entry_point"]])
+-             # increment count
+-diff --git a/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc b/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc
+-index 505b866..c65687f 100644
+-Binary files a/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc and b/scripts/rsl_rl/__pycache__/cli_args.cpython-311.pyc differ
+-diff --git a/source/pm01_dirct/pm01_dirct/tasks/__init__.py b/source/pm01_dirct/pm01_dirct/tasks/__init__.py
+-index 13df3c3..7538369 100644
+---- a/source/pm01_dirct/pm01_dirct/tasks/__init__.py
+-+++ b/source/pm01_dirct/pm01_dirct/tasks/__init__.py
+-@@ -12,6 +12,6 @@
+- from isaaclab_tasks.utils import import_packages
+- 
+- # The blacklist is used to prevent importing configs from sub-packages
+--_BLACKLIST_PKGS = ["utils", ".mdp"]
+-+_BLACKLIST_PKGS = []
+- # Import all configs in this package
+- import_packages(__name__, _BLACKLIST_PKGS)
+-diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/__init__.py b/source/pm01_dirct/pm01_dirct/tasks/direct/__init__.py
+-index 65d6e5a..8e8dd31 100644
+---- a/source/pm01_dirct/pm01_dirct/tasks/direct/__init__.py
+-+++ b/source/pm01_dirct/pm01_dirct/tasks/direct/__init__.py
+-@@ -4,3 +4,5 @@
+- # SPDX-License-Identifier: BSD-3-Clause
+- 
+- import gymnasium as gym  # noqa: F401
+-+
+-+
+-diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/__init__.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/__init__.py
+-index a93b307..24a62d8 100644
+---- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/__init__.py
+-+++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/__init__.py
+-@@ -13,11 +13,23 @@ from . import agents
+- 
+- 
+- gym.register(
+--    id="Template-Pm01-Dirct-Direct-v0",
+-+    id="Dirct-Pm01-v0",
+-     entry_point=f"{__name__}.pm01_dirct_env:Pm01DirctEnv",
+-     disable_env_checker=True,
+-     kwargs={
+--        "env_cfg_entry_point": f"{__name__}.pm01_dirct_env_cfg:Pm01DirctEnvCfg",
+--        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PPORunnerCfg",
+-+        "env_cfg_entry_point": f"{__name__}.pm01_dirct_env:Pm01DirctFaltEnvCfg",
+-+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PM01FlatPPORunnerCfg",
+-     },
+--)
+-\ No newline at end of file
+-+) 
+-+
+-+
+-+# gym.register(
+-+#     id="Template-Velocity-Flat-PM01-Play-v0",
+-+#     entry_point="isaaclab.envs:ManagerBasedRLEnv",
+-+#     disable_env_checker=True,
+-+#     kwargs={
+-+#         "env_cfg_entry_point": f"{__name__}.flat_env_cfg:PM01FlatEnvCfg_PLAY",
+-+#         "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:PM01FlatPPORunnerCfg",
+-+#         "skrl_cfg_entry_point": f"{agents.__name__}:skrl_flat_ppo_cfg.yaml",
+-+#     },
+-+# )
+-\ No newline at end of file
+-diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+-index 4556af6..be0299c 100644
+---- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+-+++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+-@@ -1,4 +1,4 @@
+--# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+-+# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+- # All rights reserved.
+- #
+- # SPDX-License-Identifier: BSD-3-Clause
+-@@ -9,24 +9,24 @@ from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, R
+- 
+- 
+- @configclass
+--class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
+--    num_steps_per_env = 16
+--    max_iterations = 150
+--    save_interval = 50
+--    experiment_name = "cartpole_direct"
+-+class PM01RoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
+-+    num_steps_per_env = 24
+-+    max_iterations = 3000
+-+    save_interval = 400
+-+    experiment_name = "pm01_rough"
+-     policy = RslRlPpoActorCriticCfg(
+-         init_noise_std=1.0,
+-         actor_obs_normalization=False,
+-         critic_obs_normalization=False,
+--        actor_hidden_dims=[32, 32],
+--        critic_hidden_dims=[32, 32],
+-+        actor_hidden_dims=[512, 256, 128],
+-+        critic_hidden_dims=[512, 256, 128],
+-         activation="elu",
+-     )
+-     algorithm = RslRlPpoAlgorithmCfg(
+-         value_loss_coef=1.0,
+-         use_clipped_value_loss=True,
+-         clip_param=0.2,
+--        entropy_coef=0.005,
+-+        entropy_coef=0.01,
+-         num_learning_epochs=5,
+-         num_mini_batches=4,
+-         learning_rate=1.0e-3,
+-@@ -35,4 +35,15 @@ class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
+-         lam=0.95,
+-         desired_kl=0.01,
+-         max_grad_norm=1.0,
+--    )
+-\ No newline at end of file
+-+    )
+-+
+-+
+-+@configclass
+-+class PM01FlatPPORunnerCfg(PM01RoughPPORunnerCfg):
+-+    def __post_init__(self):
+-+        super().__post_init__()
+-+
+-+        self.max_iterations = 1000
+-+        self.experiment_name = "pm01_flat"
+-+        self.policy.actor_hidden_dims = [128, 128, 128]
+-+        self.policy.critic_hidden_dims = [128, 128, 128]
+-diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+-index 3e94228..9907a28 100644
+---- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+-+++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+-@@ -8,128 +8,249 @@ from __future__ import annotations
+- import math
+- import torch
+- from collections.abc import Sequence
+-+import gymnasium as gym
+-+
+- 
+- import isaaclab.sim as sim_utils
+- from isaaclab.assets import Articulation
+- from isaaclab.envs import DirectRLEnv
+- from isaaclab.sim.spawners.from_files import GroundPlaneCfg, spawn_ground_plane
+- from isaaclab.utils.math import sample_uniform
+-+from isaaclab.sensors import ContactSensor
+-+from isaaclab.managers import SceneEntityCfg
+-+
+-+from .pm01_dirct_env_cfg import Pm01DirctFaltEnvCfg
+-+
+-+
+-+def gait_phase(env:DirectRLEnv, period: float) -> torch.Tensor:
+-+    if not hasattr(env, "episode_length_buf"):
+-+        env.episode_length_buf = torch.zeros(env.num_envs, device=env.device, dtype=torch.long)
+- 
+--from .pm01_dirct_env_cfg import Pm01DirctEnvCfg
+-+    global_phase = (env.episode_length_buf * env.step_dt) % period / period
+-+
+-+    phase = torch.zeros(env.num_envs, 2, device=env.device)
+-+    phase[:, 0] = torch.sin(global_phase * torch.pi * 2.0)
+-+    phase[:, 1] = torch.cos(global_phase * torch.pi * 2.0)
+-+    return phase
+- 
+- 
+- class Pm01DirctEnv(DirectRLEnv):
+--    cfg: Pm01DirctEnvCfg
+-+    cfg: Pm01DirctFaltEnvCfg
+- 
+--    def __init__(self, cfg: Pm01DirctEnvCfg, render_mode: str | None = None, **kwargs):
+-+    def __init__(self, cfg: Pm01DirctFaltEnvCfg, render_mode: str | None = None, **kwargs):
+-         super().__init__(cfg, render_mode, **kwargs)
+- 
+--        self._cart_dof_idx, _ = self.robot.find_joints(self.cfg.cart_dof_name)
+--        self._pole_dof_idx, _ = self.robot.find_joints(self.cfg.pole_dof_name)
+-+        # Joint position command (deviation from default joint positions)
+-+        self._actions = torch.zeros(self.num_envs, gym.spaces.flatdim(self.single_action_space), device=self.device)
+-+        self._previous_actions = torch.zeros(
+-+            self.num_envs, gym.spaces.flatdim(self.single_action_space), device=self.device
+-+        )
+-+
+-+        # X/Y linear velocity and yaw angular velocity commands
+-+        self._commands = torch.zeros(self.num_envs, 3, device=self.device)
+- 
+--        self.joint_pos = self.robot.data.joint_pos
+--        self.joint_vel = self.robot.data.joint_vel
+-+        # Logging
+-+        self._episode_sums = {
+-+            key: torch.zeros(self.num_envs, dtype=torch.float, device=self.device)
+-+            for key in [
+-+                "track_lin_vel_xy_exp",
+-+                "track_ang_vel_z_exp",
+-+                "lin_vel_z_l2",
+-+                "ang_vel_xy_l2",
+-+                "dof_torques_l2",
+-+                "dof_acc_l2",
+-+                "action_rate_l2",
+-+                "feet_air_time",
+-+                # "undesired_contacts",
+-+                "flat_orientation_l2",
+-+                "feet_slide",
+-+                "joint_deviation_hip",
+-+                "joint_deviation_knee",
+-+                "joint_deviation_arms",
+-+                "joint_deviation_torso",
+-+                "stand_still",
+-+            ]
+-+        }
+-+        # Get specific body indices
+-+        self._base_id, _ = self._contact_sensor.find_bodies("link_base")
+-+        self._feet_ids, _ = self._contact_sensor.find_bodies(["link_ankle_roll_r", "link_ankle_roll_l"])
+-+
+-+        self._hip_joints = [".*_hip_yaw_.*", ".*_hip_roll_.*"]
+-+        self._knee_joints = [".*_knee_pitch_.*"]
+-+        self._arm_joints = [".*_shoulder_.*", ".*_elbow_.*"]
+-+        self._torso_joints = ["j12_waist_yaw"]
+-+
+-+        # self._undesired_contact_body_ids, _ = self._contact_sensor.find_bodies(".*THIGH")
+- 
+-     def _setup_scene(self):
+--        self.robot = Articulation(self.cfg.robot_cfg)
+--        # add ground plane
+--        spawn_ground_plane(prim_path="/World/ground", cfg=GroundPlaneCfg())
+-+        self._robot = Articulation(self.cfg.robot)
+-+        self.scene.articulations["robot"] = self._robot
+-+        self._contact_sensor = ContactSensor(self.cfg.contact_sensor)
+-+        self.scene.sensors["contact_sensor"] = self._contact_sensor
+-+        self.cfg.terrain.num_envs = self.scene.cfg.num_envs
+-+        self.cfg.terrain.env_spacing = self.scene.cfg.env_spacing
+-+        self._terrain = self.cfg.terrain.class_type(self.cfg.terrain)
+-         # clone and replicate
+-         self.scene.clone_environments(copy_from_source=False)
+-         # we need to explicitly filter collisions for CPU simulation
+-         if self.device == "cpu":
+--            self.scene.filter_collisions(global_prim_paths=[])
+--        # add articulation to scene
+--        self.scene.articulations["robot"] = self.robot
+-+            self.scene.filter_collisions(global_prim_paths=[self.cfg.terrain.prim_path])
+-         # add lights
+-         light_cfg = sim_utils.DomeLightCfg(intensity=2000.0, color=(0.75, 0.75, 0.75))
+-         light_cfg.func("/World/Light", light_cfg)
+- 
+-     def _pre_physics_step(self, actions: torch.Tensor) -> None:
+--        self.actions = actions.clone()
+-+        self._actions = actions.clone()
+-+        self._processed_actions = self.cfg.action_scale * self._actions + self._robot.data.default_joint_pos
+-+
+- 
+-     def _apply_action(self) -> None:
+--        self.robot.set_joint_effort_target(self.actions * self.cfg.action_scale, joint_ids=self._cart_dof_idx)
+-+        self._robot.set_joint_position_target(self._processed_actions)
+- 
+-     def _get_observations(self) -> dict:
+-+        self._previous_actions = self._actions.clone()
+-         obs = torch.cat(
+--            (
+--                self.joint_pos[:, self._pole_dof_idx[0]].unsqueeze(dim=1),
+--                self.joint_vel[:, self._pole_dof_idx[0]].unsqueeze(dim=1),
+--                self.joint_pos[:, self._cart_dof_idx[0]].unsqueeze(dim=1),
+--                self.joint_vel[:, self._cart_dof_idx[0]].unsqueeze(dim=1),
+--            ),
+-+            [
+-+                tensor
+-+                for tensor in (
+-+                    self._robot.data.joint_pos - self._robot.data.default_joint_pos,
+-+                    self._robot.data.joint_vel,
+-+                    self._actions,
+-+                    self._robot.data.root_ang_vel_b,
+-+                    self._robot.data.root_quat_w,
+-+                    self._commands,
+-+                    self._robot.data.projected_gravity_b,
+-+                    gait_phase(self, period=0.6),
+-+                )
+-+                if tensor is not None
+-+            ],
+-             dim=-1,
+-         )
+-         observations = {"policy": obs}
+-         return observations
+- 
+-     def _get_rewards(self) -> torch.Tensor:
+--        total_reward = compute_rewards(
+--            self.cfg.rew_scale_alive,
+--            self.cfg.rew_scale_terminated,
+--            self.cfg.rew_scale_pole_pos,
+--            self.cfg.rew_scale_cart_vel,
+--            self.cfg.rew_scale_pole_vel,
+--            self.joint_pos[:, self._pole_dof_idx[0]],
+--            self.joint_vel[:, self._pole_dof_idx[0]],
+--            self.joint_pos[:, self._cart_dof_idx[0]],
+--            self.joint_vel[:, self._cart_dof_idx[0]],
+--            self.reset_terminated,
+-+        # linear velocity tracking
+-+        lin_vel_error = torch.sum(torch.square(self._commands[:, :2] - self._robot.data.root_lin_vel_b[:, :2]), dim=1)
+-+        lin_vel_error_mapped = torch.exp(-lin_vel_error / 0.25)
+-+        # yaw rate tracking
+-+        yaw_rate_error = torch.square(self._commands[:, 2] - self._robot.data.root_ang_vel_b[:, 2])
+-+        yaw_rate_error_mapped = torch.exp(-yaw_rate_error / 0.25)
+-+        # z velocity tracking
+-+        z_vel_error = torch.square(self._robot.data.root_lin_vel_b[:, 2])
+-+        # angular velocity x/y
+-+        ang_vel_error = torch.sum(torch.square(self._robot.data.root_ang_vel_b[:, :2]), dim=1)
+-+        # joint torques
+-+        joint_torques = torch.sum(torch.square(self._robot.data.applied_torque), dim=1)
+-+        # joint acceleration
+-+        joint_accel = torch.sum(torch.square(self._robot.data.joint_acc), dim=1)
+-+        # action rate
+-+        action_rate = torch.sum(torch.square(self._actions - self._previous_actions), dim=1)
+-+        # feet air time
+-+        first_contact = self._contact_sensor.compute_first_contact(self.step_dt)[:, self._feet_ids]
+-+        last_air_time = self._contact_sensor.data.last_air_time[:, self._feet_ids]
+-+        air_time = torch.sum((last_air_time - 0.5) * first_contact, dim=1) * (
+-+            torch.norm(self._commands[:, :2], dim=1) > 0.1
+-         )
+--        return total_reward
+-+        # undesired contacts
+-+        # net_contact_forces = self._contact_sensor.data.net_forces_w_history
+-+        # is_contact = (
+-+        #     torch.max(torch.norm(net_contact_forces[:, :, self._undesired_contact_body_ids], dim=-1), dim=1)[0] > 1.0
+-+        # )
+-+        # undesired_contacts = torch.sum(is_contact, dim=1)   
+-+        # flat orientation
+-+        flat_orientation = torch.sum(torch.square(self._robot.data.projected_gravity_b[:, :2]), dim=1)      
+-+        #feet_slide
+-+        asset: Articulation = self.scene["robot"]
+-+        feet_contacts = self._contact_sensor.data.net_forces_w_history[:, :, self._feet_ids, :].norm(dim=-1).max(dim=1)[0] > 1.0
+-+        body_vel = asset.data.body_lin_vel_w[:, self._feet_ids, :2]
+-+        feet_slide = torch.sum(body_vel.norm(dim=-1) * feet_contacts, dim=1)
+-+        #joint_deviation_hip
+-+        hip_asset_cfg = SceneEntityCfg("robot", joint_names=self._hip_joints)
+-+        hip_asset: Articulation = self.scene[hip_asset_cfg.name]
+-+        hip_angle = hip_asset.data.joint_pos[:, hip_asset_cfg.joint_ids] - hip_asset.data.default_joint_pos[:, hip_asset_cfg.joint_ids]
+-+        joint_deviation_hip =  torch.sum(torch.abs(hip_angle), dim=1)
+-+        #joint_deviation_knee
+-+        knee_asset_cfg = SceneEntityCfg("robot", joint_names=self._knee_joints)
+-+        knee_asset: Articulation = self.scene[knee_asset_cfg.name]
+-+        knee_angle = knee_asset.data.joint_pos[:, knee_asset_cfg.joint_ids] - knee_asset.data.default_joint_pos[:, knee_asset_cfg.joint_ids]
+-+        joint_deviation_knee =  torch.sum(torch.abs(knee_angle), dim=1)        
+-+        #joint_deviation_arms
+-+        arm_asset_cfg = SceneEntityCfg("robot", joint_names=self._arm_joints)
+-+        arm_asset: Articulation = self.scene[arm_asset_cfg.name]        
+-+        arm_angle = arm_asset.data.joint_pos[:, arm_asset_cfg.joint_ids] - arm_asset.data.default_joint_pos[:, arm_asset_cfg.joint_ids]
+-+        joint_deviation_arms =  torch.sum(torch.abs(arm_angle), dim=1)        
+-+        #joint_deviation_torso
+-+        torso_asset_cfg = SceneEntityCfg("robot", joint_names=self._torso_joints)
+-+        torso_asset: Articulation = self.scene[torso_asset_cfg.name]          
+-+        torso_angle = torso_asset.data.joint_pos[:, torso_asset_cfg.joint_ids] - torso_asset.data.default_joint_pos[:, torso_asset_cfg.joint_ids]
+-+        joint_deviation_torso =  torch.sum(torch.abs(torso_angle), dim=1)        
+-+        #stand_still
+-+        angle = asset.data.joint_pos - asset.data.default_joint_pos
+-+        joint_deviation_l1 = torch.sum(torch.abs(angle), dim=1)
+-+        stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :2], dim=1) < self.cfg.command_threshold)
+-+        
+- 
+--    def _get_dones(self) -> tuple[torch.Tensor, torch.Tensor]:
+--        self.joint_pos = self.robot.data.joint_pos
+--        self.joint_vel = self.robot.data.joint_vel
+-+        rewards = {
+-+            "track_lin_vel_xy_exp": lin_vel_error_mapped * self.cfg.lin_vel_reward_scale * self.step_dt,
+-+            "track_ang_vel_z_exp": yaw_rate_error_mapped * self.cfg.yaw_rate_reward_scale * self.step_dt,
+-+            "lin_vel_z_l2": z_vel_error * self.cfg.z_vel_reward_scale * self.step_dt,
+-+            "ang_vel_xy_l2": ang_vel_error * self.cfg.ang_vel_reward_scale * self.step_dt,
+-+            "dof_torques_l2": joint_torques * self.cfg.joint_torque_reward_scale * self.step_dt,
+-+            "dof_acc_l2": joint_accel * self.cfg.joint_accel_reward_scale * self.step_dt,
+-+            "action_rate_l2": action_rate * self.cfg.action_rate_reward_scale * self.step_dt,
+-+            "feet_air_time": air_time * self.cfg.feet_air_time_reward_scale * self.step_dt,
+-+            # "undesired_contacts": undesired_contacts * self.cfg.undesired_contact_reward_scale * self.step_dt,
+-+            "flat_orientation_l2": flat_orientation * self.cfg.flat_orientation_reward_scale * self.step_dt,
+-+            "feet_slide": feet_slide * self.cfg.feet_slide_reward_scale * self.step_dt,
+-+            "joint_deviation_hip": joint_deviation_hip * self.cfg.joint_deviation_hip_reward_scale * self.step_dt,
+-+            "joint_deviation_knee": joint_deviation_knee * self.cfg.joint_deviation_knee_reward_scale * self.step_dt,
+-+            "joint_deviation_arms": joint_deviation_arms * self.cfg.joint_deviation_arms_reward_scale * self.step_dt,
+-+            "joint_deviation_torso": joint_deviation_torso * self.cfg.joint_deviation_torso_reward_scale * self.step_dt,
+-+            "stand_still": stand_still * self.cfg.stand_still * self.step_dt,
+-+        }
+-+        reward = torch.sum(torch.stack(list(rewards.values())), dim=0)
+-+        # Logging
+-+        for key, value in rewards.items():
+-+            self._episode_sums[key] += value
+-+        return reward
+- 
+-+    def _get_dones(self) -> tuple[torch.Tensor, torch.Tensor]:
+-         time_out = self.episode_length_buf >= self.max_episode_length - 1
+--        out_of_bounds = torch.any(torch.abs(self.joint_pos[:, self._cart_dof_idx]) > self.cfg.max_cart_pos, dim=1)
+--        out_of_bounds = out_of_bounds | torch.any(torch.abs(self.joint_pos[:, self._pole_dof_idx]) > math.pi / 2, dim=1)
+--        return out_of_bounds, time_out
+-+        net_contact_forces = self._contact_sensor.data.net_forces_w_history
+-+        died = torch.any(torch.max(torch.norm(net_contact_forces[:, :, self._base_id], dim=-1), dim=1)[0] > 1.0, dim=1)
+-+        return died, time_out
+- 
+-     def _reset_idx(self, env_ids: Sequence[int] | None):
+--        if env_ids is None:
+--            env_ids = self.robot._ALL_INDICES
+-+        if env_ids is None or len(env_ids) == self.num_envs:
+-+            env_ids = self._robot._ALL_INDICES
+-+        self._robot.reset(env_ids)
+-         super()._reset_idx(env_ids)
+-+        if len(env_ids) == self.num_envs:
+-+            # Spread out the resets to avoid spikes in training when many environments reset at a similar time
+-+            self.episode_length_buf[:] = torch.randint_like(self.episode_length_buf, high=int(self.max_episode_length))
+-+        self._actions[env_ids] = 0.0
+-+        self._previous_actions[env_ids] = 0.0
+-+        # Sample new commands
+-+        self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
+-+        # Reset robot state
+-+        joint_pos = self._robot.data.default_joint_pos[env_ids]
+-+        joint_vel = self._robot.data.default_joint_vel[env_ids]
+-+        default_root_state = self._robot.data.default_root_state[env_ids]
+-+        default_root_state[:, :3] += self._terrain.env_origins[env_ids]
+-+        self._robot.write_root_pose_to_sim(default_root_state[:, :7], env_ids)
+-+        self._robot.write_root_velocity_to_sim(default_root_state[:, 7:], env_ids)
+-+        self._robot.write_joint_state_to_sim(joint_pos, joint_vel, None, env_ids)
+-+        # Logging
+-+        extras = dict()
+-+        for key in self._episode_sums.keys():
+-+            episodic_sum_avg = torch.mean(self._episode_sums[key][env_ids])
+-+            extras["Episode_Reward/" + key] = episodic_sum_avg / self.max_episode_length_s
+-+            self._episode_sums[key][env_ids] = 0.0
+-+        self.extras["log"] = dict()
+-+        self.extras["log"].update(extras)
+-+        extras = dict()
+-+        extras["Episode_Termination/base_contact"] = torch.count_nonzero(self.reset_terminated[env_ids]).item()
+-+        extras["Episode_Termination/time_out"] = torch.count_nonzero(self.reset_time_outs[env_ids]).item()
+-+        self.extras["log"].update(extras)
+- 
+--        joint_pos = self.robot.data.default_joint_pos[env_ids]
+--        joint_pos[:, self._pole_dof_idx] += sample_uniform(
+--            self.cfg.initial_pole_angle_range[0] * math.pi,
+--            self.cfg.initial_pole_angle_range[1] * math.pi,
+--            joint_pos[:, self._pole_dof_idx].shape,
+--            joint_pos.device,
+--        )
+--        joint_vel = self.robot.data.default_joint_vel[env_ids]
+--
+--        default_root_state = self.robot.data.default_root_state[env_ids]
+--        default_root_state[:, :3] += self.scene.env_origins[env_ids]
+--
+--        self.joint_pos[env_ids] = joint_pos
+--        self.joint_vel[env_ids] = joint_vel
+--
+--        self.robot.write_root_pose_to_sim(default_root_state[:, :7], env_ids)
+--        self.robot.write_root_velocity_to_sim(default_root_state[:, 7:], env_ids)
+--        self.robot.write_joint_state_to_sim(joint_pos, joint_vel, None, env_ids)
+--
+--
+--@torch.jit.script
+--def compute_rewards(
+--    rew_scale_alive: float,
+--    rew_scale_terminated: float,
+--    rew_scale_pole_pos: float,
+--    rew_scale_cart_vel: float,
+--    rew_scale_pole_vel: float,
+--    pole_pos: torch.Tensor,
+--    pole_vel: torch.Tensor,
+--    cart_pos: torch.Tensor,
+--    cart_vel: torch.Tensor,
+--    reset_terminated: torch.Tensor,
+--):
+--    rew_alive = rew_scale_alive * (1.0 - reset_terminated.float())
+--    rew_termination = rew_scale_terminated * reset_terminated.float()
+--    rew_pole_pos = rew_scale_pole_pos * torch.sum(torch.square(pole_pos).unsqueeze(dim=1), dim=-1)
+--    rew_cart_vel = rew_scale_cart_vel * torch.sum(torch.abs(cart_vel).unsqueeze(dim=1), dim=-1)
+--    rew_pole_vel = rew_scale_pole_vel * torch.sum(torch.abs(pole_vel).unsqueeze(dim=1), dim=-1)
+--    total_reward = rew_alive + rew_termination + rew_pole_pos + rew_cart_vel + rew_pole_vel
+--    return total_reward
+-\ No newline at end of file
+-diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+-index ee0edbd..74cbf0f 100644
+---- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+-+++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+-@@ -2,47 +2,180 @@
+- # All rights reserved.
+- #
+- # SPDX-License-Identifier: BSD-3-Clause
+--
+--from isaaclab_assets.robots.cartpole import CARTPOLE_CFG
+--
+-+import isaaclab.envs.mdp as mdp
+-+import isaaclab.sim as sim_utils
+- from isaaclab.assets import ArticulationCfg
+- from isaaclab.envs import DirectRLEnvCfg
+-+from isaaclab.managers import EventTermCfg as EventTerm
+-+from isaaclab.managers import SceneEntityCfg
+- from isaaclab.scene import InteractiveSceneCfg
+-+from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
+- from isaaclab.sim import SimulationCfg
+-+from isaaclab.terrains import TerrainImporterCfg
+- from isaaclab.utils import configclass
+-+from isaaclab.utils.noise import GaussianNoiseCfg, NoiseModelWithAdditiveBiasCfg
+- 
+-+##
+-+# Pre-defined configs
+-+##
+-+from .pm01 import PM01_CFG  # isort: skip
+-+from isaaclab.terrains.config.rough import ROUGH_TERRAINS_CFG  # isort: skip
+- 
+- @configclass
+--class Pm01DirctEnvCfg(DirectRLEnvCfg):
+-+class EventCfg:
+-+    """Configuration for events."""
+-+
+-+    # startup
+-+    physics_material = EventTerm(
+-+        func=mdp.randomize_rigid_body_material,
+-+        mode="startup",
+-+        params={
+-+            "asset_cfg": SceneEntityCfg("robot", body_names=".*"),
+-+            "static_friction_range": (0.8, 0.8),
+-+            "dynamic_friction_range": (0.6, 0.6),
+-+            "restitution_range": (0.0, 0.0),
+-+            "num_buckets": 64,
+-+        },
+-+    )
+-+
+-+    add_base_mass = EventTerm(
+-+        func=mdp.randomize_rigid_body_mass,
+-+        mode="startup",
+-+        params={
+-+            "asset_cfg": SceneEntityCfg("robot", body_names="link_base"),
+-+            "mass_distribution_params": (-5.0, 5.0),
+-+            "operation": "add",
+-+        },
+-+    )
+-+
+-+    # base_com = EventTerm(
+-+    #     func=mdp.randomize_rigid_body_com,
+-+    #     mode="startup",
+-+    #     params={
+-+    #         "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-+    #         "com_range": {"x": (-0.05, 0.05), "y": (-0.05, 0.05), "z": (-0.01, 0.01)},
+-+    #     },
+-+    # )
+-+
+-+    # # reset
+-+    # base_external_force_torque = EventTerm(
+-+    #     func=mdp.apply_external_force_torque,
+-+    #     mode="reset",
+-+    #     params={
+-+    #         "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-+    #         "force_range": (0.0, 0.0),
+-+    #         "torque_range": (-0.0, 0.0),
+-+    #     },
+-+    # )
+-+
+-+    # reset_base = EventTerm(
+-+    #     func=mdp.reset_root_state_uniform,
+-+    #     mode="reset",
+-+    #     params={
+-+    #         "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
+-+    #         "velocity_range": {
+-+    #             "x": (-0.5, 0.5),
+-+    #             "y": (-0.5, 0.5),
+-+    #             "z": (-0.5, 0.5),
+-+    #             "roll": (-0.5, 0.5),
+-+    #             "pitch": (-0.5, 0.5),
+-+    #             "yaw": (-0.5, 0.5),
+-+    #         },
+-+    #     },
+-+    # )
+-+
+-+    # reset_robot_joints = EventTerm(
+-+    #     func=mdp.reset_joints_by_scale,
+-+    #     mode="reset",
+-+    #     params={
+-+    #         "position_range": (0.5, 1.5),
+-+    #         "velocity_range": (0.0, 0.0),
+-+    #     },
+-+    # )
+-+
+-+    # # interval
+-+    # push_robot = EventTerm(
+-+    #     func=mdp.push_by_setting_velocity,
+-+    #     mode="interval",
+-+    #     interval_range_s=(10.0, 15.0),
+-+    #     params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
+-+    # )
+-+
+-+
+-+@configclass
+-+class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
+-     # env
+--    decimation = 2
+--    episode_length_s = 5.0
+--    # - spaces definition
+--    action_space = 1
+--    observation_space = 4
+-+    episode_length_s = 20.0
+-+    decimation = 4
+-+    action_scale = 0.5
+-+    action_space = 24
+-+    observation_space = 87
+-     state_space = 0
+- 
+-     # simulation
+--    sim: SimulationCfg = SimulationCfg(dt=1 / 120, render_interval=decimation)
+--
+--    # robot(s)
+--    robot_cfg: ArticulationCfg = CARTPOLE_CFG.replace(prim_path="/World/envs/env_.*/Robot")
+-+    sim: SimulationCfg = SimulationCfg(
+-+        dt=1 / 200,
+-+        render_interval=decimation,
+-+        physics_material=sim_utils.RigidBodyMaterialCfg(
+-+            friction_combine_mode="multiply",
+-+            restitution_combine_mode="multiply",
+-+            static_friction=1.0,
+-+            dynamic_friction=1.0,
+-+            restitution=0.0,
+-+        ),
+-+    )
+-+    terrain = TerrainImporterCfg(
+-+        prim_path="/World/ground",
+-+        terrain_type="plane",
+-+        collision_group=-1,
+-+        physics_material=sim_utils.RigidBodyMaterialCfg(
+-+            friction_combine_mode="multiply",
+-+            restitution_combine_mode="multiply",
+-+            static_friction=1.0,
+-+            dynamic_friction=1.0,
+-+            restitution=0.0,
+-+        ),
+-+        debug_vis=False,
+-+    )
+- 
+-     # scene
+-     scene: InteractiveSceneCfg = InteractiveSceneCfg(num_envs=4096, env_spacing=4.0, replicate_physics=True)
+- 
+--    # custom parameters/scales
+--    # - controllable joint
+--    cart_dof_name = "slider_to_cart"
+--    pole_dof_name = "cart_to_pole"
+--    # - action scale
+--    action_scale = 100.0  # [N]
+--    # - reward scales
+--    rew_scale_alive = 1.0
+--    rew_scale_terminated = -2.0
+--    rew_scale_pole_pos = -1.0
+--    rew_scale_cart_vel = -0.01
+--    rew_scale_pole_vel = -0.005
+--    # - reset states/conditions
+--    initial_pole_angle_range = [-0.25, 0.25]  # pole angle sample range on reset [rad]
+--    max_cart_pos = 3.0  # reset if cart exceeds this position [m]
+-\ No newline at end of file
+-+    # events
+-+    events: EventCfg = EventCfg()
+-+
+-+    # robot
+-+    robot: ArticulationCfg = PM01_CFG.replace(prim_path="/World/envs/env_.*/Robot")
+-+    contact_sensor: ContactSensorCfg = ContactSensorCfg(
+-+        prim_path="/World/envs/env_.*/Robot/.*", history_length=3, update_period=0.005, track_air_time=True
+-+    )
+-+
+-+    # at every time-step add gaussian noise + bias. The bias is a gaussian sampled at reset
+-+    action_noise_model: NoiseModelWithAdditiveBiasCfg = NoiseModelWithAdditiveBiasCfg(
+-+        noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.05, operation="add"),
+-+        bias_noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.015, operation="abs"),
+-+    )
+-+    # at every time-step add gaussian noise + bias. The bias is a gaussian sampled at reset
+-+    observation_noise_model: NoiseModelWithAdditiveBiasCfg = NoiseModelWithAdditiveBiasCfg(
+-+        noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.002, operation="add"),
+-+        bias_noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.0001, operation="abs"),
+-+    )
+-+
+-+    # reward scales
+-+    lin_vel_reward_scale = 1.0
+-+    yaw_rate_reward_scale = 0.5
+-+    z_vel_reward_scale = -2.0
+-+    ang_vel_reward_scale = -0.05
+-+    joint_torque_reward_scale = -2.5e-5
+-+    joint_accel_reward_scale = -2.5e-7
+-+    action_rate_reward_scale = -0.01
+-+    feet_air_time_reward_scale = 0.5
+-+    flat_orientation_reward_scale = -5.0
+-+    feet_slide_reward_scale = 0.0    
+-+    joint_deviation_hip_reward_scale = 0.0
+-+    joint_deviation_knee_reward_scale = 0.0
+-+    joint_deviation_arms_reward_scale = 0.0
+-+    joint_deviation_torso_reward_scale = 0.0
+-+    stand_still = 0.0
+-+
+-+    command_threshold = 0.3 
+-\ No newline at end of file
+\ No newline at end of file
+diff --git a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/model_0.pt b/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/model_0.pt
+deleted file mode 100644
+index 75af622..0000000
+--- a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/model_0.pt
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:f0e11b9c655564e085e7581065d98c1621fdd08545675493fd546e3f6e8dfbea
+-size 1121879
+diff --git a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/agent.yaml b/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/agent.yaml
+deleted file mode 100644
+index f3797e3..0000000
+--- a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/agent.yaml
++++ /dev/null
+@@ -1,50 +0,0 @@
+-seed: 42
+-device: cuda:0
+-num_steps_per_env: 24
+-max_iterations: 1000
+-empirical_normalization: null
+-obs_groups: {}
+-clip_actions: null
+-save_interval: 400
+-experiment_name: pm01_flat
+-run_name: ''
+-logger: tensorboard
+-neptune_project: isaaclab
+-wandb_project: isaaclab
+-resume: false
+-load_run: .*
+-load_checkpoint: model_.*.pt
+-class_name: OnPolicyRunner
+-policy:
+-  class_name: ActorCritic
+-  init_noise_std: 1.0
+-  noise_std_type: scalar
+-  state_dependent_std: false
+-  actor_obs_normalization: false
+-  critic_obs_normalization: false
+-  actor_hidden_dims:
+-  - 128
+-  - 128
+-  - 128
+-  critic_hidden_dims:
+-  - 128
+-  - 128
+-  - 128
+-  activation: elu
+-algorithm:
+-  class_name: PPO
+-  num_learning_epochs: 5
+-  num_mini_batches: 4
+-  learning_rate: 0.001
+-  schedule: adaptive
+-  gamma: 0.99
+-  lam: 0.95
+-  entropy_coef: 0.01
+-  desired_kl: 0.01
+-  max_grad_norm: 1.0
+-  value_loss_coef: 1.0
+-  use_clipped_value_loss: true
+-  clip_param: 0.2
+-  normalize_advantage_per_mini_batch: false
+-  rnd_cfg: null
+-  symmetry_cfg: null
+diff --git a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/env.yaml b/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/env.yaml
+deleted file mode 100644
+index cbf4ad5..0000000
+--- a/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56/params/env.yaml
++++ /dev/null
+@@ -1,505 +0,0 @@
+-viewer:
+-  eye: !!python/tuple
+-  - 7.5
+-  - 7.5
+-  - 7.5
+-  lookat: !!python/tuple
+-  - 0.0
+-  - 0.0
+-  - 0.0
+-  cam_prim_path: /OmniverseKit_Persp
+-  resolution: !!python/tuple
+-  - 1280
+-  - 720
+-  origin_type: world
+-  env_index: 0
+-  asset_name: null
+-  body_name: null
+-sim:
+-  physics_prim_path: /physicsScene
+-  device: cuda:0
+-  dt: 0.005
+-  render_interval: 4
+-  gravity: !!python/tuple
+-  - 0.0
+-  - 0.0
+-  - -9.81
+-  enable_scene_query_support: false
+-  use_fabric: true
+-  physx:
+-    solver_type: 1
+-    solve_articulation_contact_last: false
+-    min_position_iteration_count: 1
+-    max_position_iteration_count: 255
+-    min_velocity_iteration_count: 0
+-    max_velocity_iteration_count: 255
+-    enable_ccd: false
+-    enable_stabilization: false
+-    enable_external_forces_every_iteration: false
+-    enable_enhanced_determinism: false
+-    bounce_threshold_velocity: 0.5
+-    friction_offset_threshold: 0.04
+-    friction_correlation_distance: 0.025
+-    gpu_max_rigid_contact_count: 8388608
+-    gpu_max_rigid_patch_count: 163840
+-    gpu_found_lost_pairs_capacity: 2097152
+-    gpu_found_lost_aggregate_pairs_capacity: 33554432
+-    gpu_total_aggregate_pairs_capacity: 2097152
+-    gpu_collision_stack_size: 67108864
+-    gpu_heap_capacity: 67108864
+-    gpu_temp_buffer_capacity: 16777216
+-    gpu_max_num_partitions: 8
+-    gpu_max_soft_body_contacts: 1048576
+-    gpu_max_particle_contacts: 1048576
+-  physics_material:
+-    func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+-    static_friction: 1.0
+-    dynamic_friction: 1.0
+-    restitution: 0.0
+-    friction_combine_mode: multiply
+-    restitution_combine_mode: multiply
+-    compliant_contact_stiffness: 0.0
+-    compliant_contact_damping: 0.0
+-  render:
+-    enable_translucency: null
+-    enable_reflections: null
+-    enable_global_illumination: null
+-    antialiasing_mode: null
+-    enable_dlssg: null
+-    enable_dl_denoiser: null
+-    dlss_mode: null
+-    enable_direct_lighting: null
+-    samples_per_pixel: null
+-    enable_shadows: null
+-    enable_ambient_occlusion: null
+-    dome_light_upper_lower_strategy: null
+-    carb_settings: null
+-    rendering_mode: null
+-  create_stage_in_memory: false
+-  logging_level: WARNING
+-  save_logs_to_file: true
+-  log_dir: null
+-ui_window_class_type: isaaclab.envs.ui.base_env_window:BaseEnvWindow
+-seed: 42
+-decimation: 4
+-is_finite_horizon: false
+-episode_length_s: 20.0
+-scene:
+-  num_envs: 8
+-  env_spacing: 4.0
+-  lazy_sensor_update: true
+-  replicate_physics: true
+-  filter_collisions: true
+-  clone_in_fabric: false
+-events:
+-  physics_material:
+-    func: isaaclab.envs.mdp.events:randomize_rigid_body_material
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: .*
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      static_friction_range: !!python/tuple
+-      - 0.8
+-      - 0.8
+-      dynamic_friction_range: !!python/tuple
+-      - 0.6
+-      - 0.6
+-      restitution_range: !!python/tuple
+-      - 0.0
+-      - 0.0
+-      num_buckets: 64
+-    mode: startup
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-  add_base_mass:
+-    func: isaaclab.envs.mdp.events:randomize_rigid_body_mass
+-    params:
+-      asset_cfg:
+-        name: robot
+-        joint_names: null
+-        joint_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        fixed_tendon_names: null
+-        fixed_tendon_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        body_names: link_base
+-        body_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        object_collection_names: null
+-        object_collection_ids: !!python/object/apply:builtins.slice
+-        - null
+-        - null
+-        - null
+-        preserve_order: false
+-      mass_distribution_params: !!python/tuple
+-      - -5.0
+-      - 5.0
+-      operation: add
+-    mode: startup
+-    interval_range_s: null
+-    is_global_time: false
+-    min_step_count_between_reset: 0
+-observation_space: 87
+-num_observations: null
+-state_space: 0
+-num_states: null
+-observation_noise_model:
+-  class_type: isaaclab.utils.noise.noise_model:NoiseModelWithAdditiveBias
+-  noise_cfg:
+-    func: isaaclab.utils.noise.noise_model:gaussian_noise
+-    operation: add
+-    mean: 0.0
+-    std: 0.002
+-  func: null
+-  bias_noise_cfg:
+-    func: isaaclab.utils.noise.noise_model:gaussian_noise
+-    operation: abs
+-    mean: 0.0
+-    std: 0.0001
+-  sample_bias_per_component: true
+-action_space: 24
+-num_actions: null
+-action_noise_model:
+-  class_type: isaaclab.utils.noise.noise_model:NoiseModelWithAdditiveBias
+-  noise_cfg:
+-    func: isaaclab.utils.noise.noise_model:gaussian_noise
+-    operation: add
+-    mean: 0.0
+-    std: 0.05
+-  func: null
+-  bias_noise_cfg:
+-    func: isaaclab.utils.noise.noise_model:gaussian_noise
+-    operation: abs
+-    mean: 0.0
+-    std: 0.015
+-  sample_bias_per_component: true
+-rerender_on_reset: false
+-num_rerenders_on_reset: 0
+-wait_for_textures: true
+-xr: null
+-log_dir: /home/ubuntu/workspace/isaac/mycode/pm01_dirct/logs/rsl_rl/pm01_flat/2026-03-25_11-01-56
+-robot:
+-  class_type: isaaclab.assets.articulation.articulation:Articulation
+-  prim_path: /World/envs/env_.*/Robot
+-  spawn:
+-    func: isaaclab.sim.spawners.from_files.from_files:spawn_from_usd
+-    visible: true
+-    semantic_tags: null
+-    copy_from_source: true
+-    mass_props: null
+-    deformable_props: null
+-    rigid_props:
+-      rigid_body_enabled: null
+-      kinematic_enabled: null
+-      disable_gravity: false
+-      linear_damping: 0.0
+-      angular_damping: 0.0
+-      max_linear_velocity: 1000.0
+-      max_angular_velocity: 1000.0
+-      max_depenetration_velocity: 1.0
+-      max_contact_impulse: null
+-      enable_gyroscopic_forces: null
+-      retain_accelerations: false
+-      solver_position_iteration_count: null
+-      solver_velocity_iteration_count: null
+-      sleep_threshold: null
+-      stabilization_threshold: null
+-    collision_props: null
+-    activate_contact_sensors: true
+-    scale: null
+-    articulation_props:
+-      articulation_enabled: null
+-      enabled_self_collisions: false
+-      solver_position_iteration_count: 4
+-      solver_velocity_iteration_count: 4
+-      sleep_threshold: null
+-      stabilization_threshold: null
+-      fix_root_link: null
+-    fixed_tendons_props: null
+-    spatial_tendons_props: null
+-    joint_drive_props: null
+-    visual_material_path: material
+-    visual_material: null
+-    usd_path: source/pm01_dirct/usd_model/pm01/pm01.usd
+-    variants: null
+-  init_state:
+-    pos: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    - 0.8
+-    rot: !!python/tuple
+-    - 1.0
+-    - 0.0
+-    - 0.0
+-    - 0.0
+-    lin_vel: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    - 0.0
+-    ang_vel: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    - 0.0
+-    joint_pos:
+-      j00_hip_pitch_l: -0.24
+-      j01_hip_roll_l: 0.0
+-      j02_hip_yaw_l: 0.0
+-      j03_knee_pitch_l: 0.48
+-      j04_ankle_pitch_l: -0.24
+-      j05_ankle_roll_l: 0.0
+-      j06_hip_pitch_r: -0.24
+-      j07_hip_roll_r: 0.0
+-      j08_hip_yaw_r: 0.0
+-      j09_knee_pitch_r: 0.48
+-      j10_ankle_pitch_r: -0.24
+-      j11_ankle_roll_r: 0.0
+-      j12_waist_yaw: 0.0
+-      j13_shoulder_pitch_l: 0.2
+-      j14_shoulder_roll_l: 0.13
+-      j15_shoulder_yaw_l: 0.0
+-      j16_elbow_pitch_l: -0.65
+-      j17_elbow_yaw_l: 0.0
+-      j18_shoulder_pitch_r: 0.2
+-      j19_shoulder_roll_r: -0.13
+-      j20_shoulder_yaw_r: 0.0
+-      j21_elbow_pitch_r: -0.65
+-      j22_elbow_yaw_r: 0.0
+-      j23_head_yaw: 0.0
+-    joint_vel:
+-      .*: 0.0
+-  collision_group: 0
+-  debug_vis: false
+-  articulation_root_prim_path: null
+-  soft_joint_pos_limit_factor: 1.0
+-  actuators:
+-    legs:
+-      class_type: isaaclab.actuators.actuator_pd:ImplicitActuator
+-      joint_names_expr:
+-      - j00_hip_pitch_l
+-      - j01_hip_roll_l
+-      - j02_hip_yaw_l
+-      - j03_knee_pitch_l
+-      - j04_ankle_pitch_l
+-      - j05_ankle_roll_l
+-      - j06_hip_pitch_r
+-      - j07_hip_roll_r
+-      - j08_hip_yaw_r
+-      - j09_knee_pitch_r
+-      - j10_ankle_pitch_r
+-      - j11_ankle_roll_r
+-      - j12_waist_yaw
+-      - j13_shoulder_pitch_l
+-      - j14_shoulder_roll_l
+-      - j15_shoulder_yaw_l
+-      - j16_elbow_pitch_l
+-      - j17_elbow_yaw_l
+-      - j18_shoulder_pitch_r
+-      - j19_shoulder_roll_r
+-      - j20_shoulder_yaw_r
+-      - j21_elbow_pitch_r
+-      - j22_elbow_yaw_r
+-      - j23_head_yaw
+-      effort_limit:
+-        .*_hip_pitch_.*: 164
+-        .*_hip_roll_.*: 164
+-        .*_hip_yaw_.*: 52
+-        .*_knee_pitch_.*: 164
+-        .*_ankle_pitch_.*: 52
+-        .*_ankle_roll_.*: 52
+-        j12_waist_yaw: 52
+-        .*_shoulder_.*: 52
+-        .*_elbow_.*: 52
+-        j23_head_yaw: 52
+-      velocity_limit:
+-        .*_hip_pitch_.*: 26.3
+-        .*_hip_roll_.*: 26.3
+-        .*_hip_yaw_.*: 35.2
+-        .*_knee_pitch_.*: 26.3
+-        .*_ankle_pitch_.*: 35.2
+-        .*_ankle_roll_.*: 35.2
+-        j12_waist_yaw: 35.2
+-        .*_shoulder_.*: 35.2
+-        .*_elbow_.*: 35.2
+-        j23_head_yaw: 35.2
+-      effort_limit_sim: null
+-      velocity_limit_sim: null
+-      stiffness:
+-        .*_hip_roll_.*: 150
+-        .*_hip_yaw_.*: 150
+-        .*_hip_pitch_.*: 200
+-        .*_knee_pitch_.*: 200
+-        j12_waist_yaw: 200
+-        .*_ankle_.*: 150
+-        .*_shoulder_.*: 80
+-        .*_elbow_.*: 80
+-        j23_head_yaw: 80
+-      damping:
+-        .*_hip_pitch_.*: 7.0
+-        .*_hip_roll_.*: 3.0
+-        .*_hip_yaw_.*: 3.0
+-        .*_knee_pitch_.*: 7.0
+-        .*_ankle_.*: 7.0
+-        j12_waist_yaw: 3.0
+-        .*_shoulder_.*: 3.0
+-        .*_elbow_.*: 3.0
+-        j23_head_yaw: 3.0
+-      armature:
+-        .*_hip_pitch_.*: 0.0453
+-        .*_hip_roll_.*: 0.0453
+-        .*_hip_yaw_.*: 0.0067
+-        .*_knee_.*: 0.0453
+-        .*_ankle_.*: 0.0067
+-        .*_waist_.*: 0.0067
+-        .*_shoulder_.*: 0.0067
+-        .*_elbow_.*: 0.0067
+-        .*_head_.*: 0.0067
+-      friction: null
+-      dynamic_friction: null
+-      viscous_friction: null
+-  actuator_value_resolution_debug_print: false
+-contact_sensor:
+-  class_type: isaaclab.sensors.contact_sensor.contact_sensor:ContactSensor
+-  prim_path: /World/envs/env_.*/Robot/.*
+-  update_period: 0.005
+-  history_length: 3
+-  debug_vis: false
+-  track_pose: false
+-  track_contact_points: false
+-  track_friction_forces: false
+-  max_contact_data_count_per_prim: 4
+-  track_air_time: true
+-  force_threshold: 1.0
+-  filter_prim_paths_expr: []
+-  visualizer_cfg:
+-    prim_path: /Visuals/ContactSensor
+-    markers:
+-      contact:
+-        func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-        visible: true
+-        semantic_tags: null
+-        copy_from_source: true
+-        mass_props: null
+-        rigid_props: null
+-        collision_props: null
+-        activate_contact_sensors: false
+-        visual_material_path: material
+-        visual_material:
+-          func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-          diffuse_color: !!python/tuple
+-          - 1.0
+-          - 0.0
+-          - 0.0
+-          emissive_color: !!python/tuple
+-          - 0.0
+-          - 0.0
+-          - 0.0
+-          roughness: 0.5
+-          metallic: 0.0
+-          opacity: 1.0
+-        physics_material_path: material
+-        physics_material: null
+-        radius: 0.02
+-      no_contact:
+-        func: isaaclab.sim.spawners.shapes.shapes:spawn_sphere
+-        visible: false
+-        semantic_tags: null
+-        copy_from_source: true
+-        mass_props: null
+-        rigid_props: null
+-        collision_props: null
+-        activate_contact_sensors: false
+-        visual_material_path: material
+-        visual_material:
+-          func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-          diffuse_color: !!python/tuple
+-          - 0.0
+-          - 1.0
+-          - 0.0
+-          emissive_color: !!python/tuple
+-          - 0.0
+-          - 0.0
+-          - 0.0
+-          roughness: 0.5
+-          metallic: 0.0
+-          opacity: 1.0
+-        physics_material_path: material
+-        physics_material: null
+-        radius: 0.02
+-action_scale: 0.5
+-terrain:
+-  class_type: isaaclab.terrains.terrain_importer:TerrainImporter
+-  collision_group: -1
+-  prim_path: /World/ground
+-  num_envs: 8
+-  terrain_type: plane
+-  terrain_generator: null
+-  usd_path: null
+-  env_spacing: 4.0
+-  use_terrain_origins: true
+-  visual_material:
+-    func: isaaclab.sim.spawners.materials.visual_materials:spawn_preview_surface
+-    diffuse_color: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    - 0.0
+-    emissive_color: !!python/tuple
+-    - 0.0
+-    - 0.0
+-    - 0.0
+-    roughness: 0.5
+-    metallic: 0.0
+-    opacity: 1.0
+-  physics_material:
+-    func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+-    static_friction: 1.0
+-    dynamic_friction: 1.0
+-    restitution: 0.0
+-    friction_combine_mode: multiply
+-    restitution_combine_mode: multiply
+-    compliant_contact_stiffness: 0.0
+-    compliant_contact_damping: 0.0
+-  max_init_terrain_level: null
+-  debug_vis: false
+-lin_vel_reward_scale: 1.0
+-yaw_rate_reward_scale: 0.5
+-z_vel_reward_scale: -2.0
+-ang_vel_reward_scale: -0.05
+-joint_torque_reward_scale: -2.5e-05
+-joint_accel_reward_scale: -2.5e-07
+-action_rate_reward_scale: -0.01
+-feet_air_time_reward_scale: 0.5
+-flat_orientation_reward_scale: -5.0
+-feet_slide_reward_scale: 0.0
+-joint_deviation_hip_reward_scale: 0.0
+-joint_deviation_knee_reward_scale: 0.0
+-joint_deviation_arms_reward_scale: 0.0
+-joint_deviation_torso_reward_scale: 0.0
+-stand_still: 0.0
+-command_threshold: 0.3
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+index 36eebc5..ef4a1cf 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+@@ -149,7 +149,7 @@ class Pm01DirctEnv(DirectRLEnv):
+         # feet air time
+         first_contact = self._contact_sensor.compute_first_contact(self.step_dt)[:, self._feet_ids]
+         last_air_time = self._contact_sensor.data.last_air_time[:, self._feet_ids]
+-        air_time = torch.sum((last_air_time - 0.5) * first_contact, dim=1) * (
++        air_time = torch.sum((last_air_time - self.cfg.feet_air_time_threshold) * first_contact, dim=1) * (
+             torch.norm(self._commands[:, :2], dim=1) > 0.1
+         )
+         # undesired contacts
+@@ -191,9 +191,9 @@ class Pm01DirctEnv(DirectRLEnv):
+         stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :2], dim=1) < self.cfg.command_threshold)
+         
+         rewards = {
+-            "track_lin_vel_xy_exp": lin_vel_error_mapped * self.cfg.lin_vel_reward_scale * self.step_dt,
+-            "track_ang_vel_z_exp": yaw_rate_error_mapped * self.cfg.yaw_rate_reward_scale * self.step_dt,
+-            "lin_vel_z_l2": z_vel_error * self.cfg.z_vel_reward_scale * self.step_dt,
++            "track_lin_vel_xy_exp": lin_vel_error_mapped * self.cfg.track_lin_vel_xy_reward_scale * self.step_dt,
++            "track_ang_vel_z_exp": yaw_rate_error_mapped * self.cfg.track_ang_vel__reward_scale * self.step_dt,
++            "lin_vel_z_l2": z_vel_error * self.cfg.lin_vel_z_l2_reward_scale * self.step_dt,
+             "ang_vel_xy_l2": ang_vel_error * self.cfg.ang_vel_reward_scale * self.step_dt,
+             "dof_torques_l2": joint_torques * self.cfg.joint_torque_reward_scale * self.step_dt,
+             "dof_acc_l2": joint_accel * self.cfg.joint_accel_reward_scale * self.step_dt,
+@@ -231,7 +231,8 @@ class Pm01DirctEnv(DirectRLEnv):
+         self._actions[env_ids] = 0.0
+         self._previous_actions[env_ids] = 0.0
+         # Sample new commands
+-        self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
++        # self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
++        self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
+         # Reset robot state
+         joint_pos = self._robot.data.default_joint_pos[env_ids]
+         joint_vel = self._robot.data.default_joint_vel[env_ids]
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+index 74cbf0f..9aa1ac2 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+@@ -161,21 +161,37 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
+         bias_noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.0001, operation="abs"),
+     )
+ 
++    command_threshold = 0.1
++    feet_air_time_threshold = 0.5
++
+     # reward scales
+-    lin_vel_reward_scale = 1.0
+-    yaw_rate_reward_scale = 0.5
+-    z_vel_reward_scale = -2.0
++    # track_lin_vel_xy_reward_scale = 1.75
++    # track_ang_vel__reward_scale = 0.5
++    # lin_vel_z_l2_reward_scale = -2.0
++    # ang_vel_reward_scale = -0.05
++    # joint_torque_reward_scale = -1e-5
++    # joint_accel_reward_scale = -2.5e-6
++    # action_rate_reward_scale = -0.1
++    # feet_air_time_reward_scale = 0.3
++    # flat_orientation_reward_scale = -1.5
++    # feet_slide_reward_scale = -0.5    
++    # joint_deviation_hip_reward_scale = -0.1
++    # joint_deviation_knee_reward_scale = -0.1
++    # joint_deviation_arms_reward_scale = -0.5
++    # joint_deviation_torso_reward_scale = -0.3
++    # stand_still = -1.0
++    track_lin_vel_xy_reward_scale = 1.0
++    track_ang_vel__reward_scale = 0.5
++    lin_vel_z_l2_reward_scale = -2.0
+     ang_vel_reward_scale = -0.05
+-    joint_torque_reward_scale = -2.5e-5
++    joint_torque_reward_scale = -2e-5
+     joint_accel_reward_scale = -2.5e-7
+-    action_rate_reward_scale = -0.01
++    action_rate_reward_scale = -0.05
+     feet_air_time_reward_scale = 0.5
+     flat_orientation_reward_scale = -5.0
+-    feet_slide_reward_scale = 0.0    
+-    joint_deviation_hip_reward_scale = 0.0
+-    joint_deviation_knee_reward_scale = 0.0
+-    joint_deviation_arms_reward_scale = 0.0
+-    joint_deviation_torso_reward_scale = 0.0
+-    stand_still = 0.0
+-
+-    command_threshold = 0.3 
+\ No newline at end of file
++    feet_slide_reward_scale = -0.2    
++    joint_deviation_hip_reward_scale = -0.1
++    joint_deviation_knee_reward_scale = -0.01
++    joint_deviation_arms_reward_scale = -0.1
++    joint_deviation_torso_reward_scale = -0.01
++    stand_still = 0
+diff --git "a/\345\277\253\346\215\267.md" "b/\345\277\253\346\215\267.md"
+index a92cefc..928072b 100644
+--- "a/\345\277\253\346\215\267.md"
++++ "b/\345\277\253\346\215\267.md"
+@@ -1,7 +1,7 @@
+ 
+ python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=8 --headless
+ 
+-python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 1000 --max_iterations 4000
++python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 2000 --max_iterations 4000
+ 
+ 
+ 
