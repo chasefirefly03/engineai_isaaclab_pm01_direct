@@ -149,7 +149,7 @@ class Pm01DirctEnv(DirectRLEnv):
         # feet air time
         first_contact = self._contact_sensor.compute_first_contact(self.step_dt)[:, self._feet_ids]
         last_air_time = self._contact_sensor.data.last_air_time[:, self._feet_ids]
-        air_time = torch.sum((last_air_time - 0.5) * first_contact, dim=1) * (
+        air_time = torch.sum((last_air_time - self.cfg.feet_air_time_threshold) * first_contact, dim=1) * (
             torch.norm(self._commands[:, :2], dim=1) > 0.1
         )
         # undesired contacts
@@ -191,9 +191,9 @@ class Pm01DirctEnv(DirectRLEnv):
         stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :2], dim=1) < self.cfg.command_threshold)
         
         rewards = {
-            "track_lin_vel_xy_exp": lin_vel_error_mapped * self.cfg.lin_vel_reward_scale * self.step_dt,
-            "track_ang_vel_z_exp": yaw_rate_error_mapped * self.cfg.yaw_rate_reward_scale * self.step_dt,
-            "lin_vel_z_l2": z_vel_error * self.cfg.z_vel_reward_scale * self.step_dt,
+            "track_lin_vel_xy_exp": lin_vel_error_mapped * self.cfg.track_lin_vel_xy_reward_scale * self.step_dt,
+            "track_ang_vel_z_exp": yaw_rate_error_mapped * self.cfg.track_ang_vel__reward_scale * self.step_dt,
+            "lin_vel_z_l2": z_vel_error * self.cfg.lin_vel_z_l2_reward_scale * self.step_dt,
             "ang_vel_xy_l2": ang_vel_error * self.cfg.ang_vel_reward_scale * self.step_dt,
             "dof_torques_l2": joint_torques * self.cfg.joint_torque_reward_scale * self.step_dt,
             "dof_acc_l2": joint_accel * self.cfg.joint_accel_reward_scale * self.step_dt,
@@ -231,7 +231,8 @@ class Pm01DirctEnv(DirectRLEnv):
         self._actions[env_ids] = 0.0
         self._previous_actions[env_ids] = 0.0
         # Sample new commands
-        self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
+        # self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
+        self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
         # Reset robot state
         joint_pos = self._robot.data.default_joint_pos[env_ids]
         joint_vel = self._robot.data.default_joint_vel[env_ids]

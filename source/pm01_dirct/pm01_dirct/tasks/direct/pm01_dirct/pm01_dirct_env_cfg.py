@@ -161,21 +161,37 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
         bias_noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.0001, operation="abs"),
     )
 
+    command_threshold = 0.1
+    feet_air_time_threshold = 0.5
+
     # reward scales
-    lin_vel_reward_scale = 1.0
-    yaw_rate_reward_scale = 0.5
-    z_vel_reward_scale = -2.0
+    # track_lin_vel_xy_reward_scale = 1.75
+    # track_ang_vel__reward_scale = 0.5
+    # lin_vel_z_l2_reward_scale = -2.0
+    # ang_vel_reward_scale = -0.05
+    # joint_torque_reward_scale = -1e-5
+    # joint_accel_reward_scale = -2.5e-6
+    # action_rate_reward_scale = -0.1
+    # feet_air_time_reward_scale = 0.3
+    # flat_orientation_reward_scale = -1.5
+    # feet_slide_reward_scale = -0.5    
+    # joint_deviation_hip_reward_scale = -0.1
+    # joint_deviation_knee_reward_scale = -0.1
+    # joint_deviation_arms_reward_scale = -0.5
+    # joint_deviation_torso_reward_scale = -0.3
+    # stand_still = -1.0
+    track_lin_vel_xy_reward_scale = 1.0
+    track_ang_vel__reward_scale = 0.5
+    lin_vel_z_l2_reward_scale = -2.0
     ang_vel_reward_scale = -0.05
-    joint_torque_reward_scale = -2.5e-5
+    joint_torque_reward_scale = -2e-5
     joint_accel_reward_scale = -2.5e-7
-    action_rate_reward_scale = -0.01
+    action_rate_reward_scale = -0.05
     feet_air_time_reward_scale = 0.5
     flat_orientation_reward_scale = -5.0
-    feet_slide_reward_scale = 0.0    
-    joint_deviation_hip_reward_scale = 0.0
-    joint_deviation_knee_reward_scale = 0.0
-    joint_deviation_arms_reward_scale = 0.0
-    joint_deviation_torso_reward_scale = 0.0
-    stand_still = 0.0
-
-    command_threshold = 0.3 
+    feet_slide_reward_scale = -0.2    
+    joint_deviation_hip_reward_scale = -0.1
+    joint_deviation_knee_reward_scale = -0.01
+    joint_deviation_arms_reward_scale = -0.1
+    joint_deviation_torso_reward_scale = -0.01
+    stand_still = 0
