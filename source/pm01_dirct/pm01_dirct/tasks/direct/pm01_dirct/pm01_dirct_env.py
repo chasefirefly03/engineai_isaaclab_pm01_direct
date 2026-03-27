@@ -74,12 +74,10 @@ class Pm01DirctEnv(DirectRLEnv):
         # Get specific body indices
         self._base_id, _ = self._contact_sensor.find_bodies("link_base")
         self._feet_ids, _ = self._contact_sensor.find_bodies(["link_ankle_roll_r", "link_ankle_roll_l"])
-
         self._hip_joints = [".*_hip_yaw_.*", ".*_hip_roll_.*"]
         self._knee_joints = [".*_knee_pitch_.*"]
         self._arm_joints = [".*_shoulder_.*", ".*_elbow_.*"]
         self._torso_joints = ["j12_waist_yaw"]
-
         # self._undesired_contact_body_ids, _ = self._contact_sensor.find_bodies(".*THIGH")
 
     def _setup_scene(self):
@@ -232,7 +230,9 @@ class Pm01DirctEnv(DirectRLEnv):
         self._previous_actions[env_ids] = 0.0
         # Sample new commands
         # self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
-        self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
+        # self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
+        self._commands[env_ids, 0] = torch.tensor(0.0, device=self.device).uniform_(0.0, 1.0)
+        self._commands[env_ids, 2] = torch.tensor(0.0, device=self.device).uniform_(-1.0, 1.0)
         # Reset robot state
         joint_pos = self._robot.data.default_joint_pos[env_ids]
         joint_vel = self._robot.data.default_joint_vel[env_ids]

@@ -1,0 +1,424 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01.py
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+	deleted:    source/pm01_dirct/usd_model/pm01/configuration/pm01_base.usd
+	deleted:    source/pm01_dirct/usd_model/pm01/configuration/pm01_physics.usd
+	deleted:    source/pm01_dirct/usd_model/pm01/configuration/pm01_robot.usd
+	deleted:    source/pm01_dirct/usd_model/pm01/configuration/pm01_sensor.usd
+	deleted:    source/pm01_dirct/usd_model/pm01/pm01.usd
+	deleted:    "\345\277\253\346\215\267.md"
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	logs/rsl_rl/pm01_flat/2026-03-26_16-39-39/
+	logs/rsl_rl/pm01_flat/2026-03-27_10-26-23/
+	logs/rsl_rl/pm01_flat/2026-03-27_10-54-46/
+	logs/rsl_rl/pm01_flat/2026-03-27_13-15-19/
+	note.md
+	source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/assets/
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01.py
+deleted file mode 100644
+index bdc3279..0000000
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01.py
++++ /dev/null
+@@ -1,168 +0,0 @@
+-import isaaclab.sim as sim_utils
+-from isaaclab.actuators import ActuatorNetMLPCfg, DCMotorCfg, ImplicitActuatorCfg
+-from isaaclab.assets.articulation import ArticulationCfg
+-
+-
+-PM01_CFG = ArticulationCfg(
+-    spawn=sim_utils.UsdFileCfg(
+-        usd_path="source/pm01_dirct/usd_model/pm01/pm01.usd",
+-        activate_contact_sensors=True,
+-        rigid_props=sim_utils.RigidBodyPropertiesCfg(
+-            disable_gravity=False,
+-            retain_accelerations=False,
+-            linear_damping=0.0,
+-            angular_damping=0.0,
+-            max_linear_velocity=1000.0,
+-            max_angular_velocity=1000.0,
+-            max_depenetration_velocity=1.0,
+-        ),
+-        articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+-            enabled_self_collisions=False, solver_position_iteration_count=4, solver_velocity_iteration_count=4
+-            # enabled_self_collisions=True, solver_position_iteration_count=4, solver_velocity_iteration_count=4
+-        ),
+-    ),
+-    init_state=ArticulationCfg.InitialStateCfg(
+-        pos=(0.0, 0.0, 0.8),    #0.8
+-        joint_pos={
+-            "j00_hip_pitch_l": -0.24,
+-            "j01_hip_roll_l": 0.0,
+-            "j02_hip_yaw_l": 0.0,
+-            "j03_knee_pitch_l": 0.48,
+-            "j04_ankle_pitch_l": -0.24,
+-            "j05_ankle_roll_l": 0.0,
+-            "j06_hip_pitch_r": -0.24,
+-            "j07_hip_roll_r": 0.0,
+-            "j08_hip_yaw_r": 0.0,
+-            "j09_knee_pitch_r": 0.48,
+-            "j10_ankle_pitch_r": -0.24,
+-            "j11_ankle_roll_r": 0.0,
+-
+-            # 腰部 (1个关节)
+-            "j12_waist_yaw": 0.0,
+-
+-            # 左臂 (5个关节)
+-            "j13_shoulder_pitch_l": 0.2, #0
+-            "j14_shoulder_roll_l": 0.13, #0.1
+-            "j15_shoulder_yaw_l": 0.0,
+-            "j16_elbow_pitch_l": -0.65, #0.0
+-            "j17_elbow_yaw_l": 0.0,
+-
+-            # 右臂 (5个关节)
+-            "j18_shoulder_pitch_r": 0.2, #0
+-            "j19_shoulder_roll_r": -0.13, #0.1
+-            "j20_shoulder_yaw_r": 0.0,
+-            "j21_elbow_pitch_r": -0.65, #0.0
+-            "j22_elbow_yaw_r": 0.0,
+-
+-            # 头部 (1个关节)
+-            "j23_head_yaw": 0.0,
+-        },
+-        joint_vel={".*": 0.0},
+-    ),
+-    soft_joint_pos_limit_factor=1.0,
+-    actuators={
+-        "legs":ImplicitActuatorCfg(
+-            joint_names_expr = [
+-                # 左腿 (6个关节)
+-                "j00_hip_pitch_l", "j01_hip_roll_l", "j02_hip_yaw_l", 
+-                "j03_knee_pitch_l", "j04_ankle_pitch_l", "j05_ankle_roll_l",
+-                
+-                # 右腿 (6个关节)
+-                "j06_hip_pitch_r", "j07_hip_roll_r", "j08_hip_yaw_r", 
+-                "j09_knee_pitch_r", "j10_ankle_pitch_r", "j11_ankle_roll_r",
+-
+-                # 腰部 (1个关节)
+-                "j12_waist_yaw",
+-                
+-                # 左臂 (5个关节)
+-                "j13_shoulder_pitch_l", "j14_shoulder_roll_l", "j15_shoulder_yaw_l",
+-                "j16_elbow_pitch_l", "j17_elbow_yaw_l",
+-                
+-                # 右臂 (5个关节)
+-                "j18_shoulder_pitch_r", "j19_shoulder_roll_r", "j20_shoulder_yaw_r",
+-                "j21_elbow_pitch_r", "j22_elbow_yaw_r",
+-                
+-                # 头部 (1个关节)
+-                "j23_head_yaw"
+-            ],
+-            effort_limit={
+-                ".*_hip_pitch_.*": 164,
+-                ".*_hip_roll_.*": 164,
+-                ".*_hip_yaw_.*": 52,
+-                ".*_knee_pitch_.*": 164,
+-                ".*_ankle_pitch_.*": 52,
+-                ".*_ankle_roll_.*": 52,
+-                "j12_waist_yaw": 52,
+-                ".*_shoulder_.*": 52,
+-                ".*_elbow_.*": 52,
+-                "j23_head_yaw": 52,
+-            },
+-
+-            velocity_limit={
+-                ".*_hip_pitch_.*": 26.3,
+-                ".*_hip_roll_.*": 26.3,
+-                ".*_hip_yaw_.*": 35.2,
+-                ".*_knee_pitch_.*": 26.3,
+-                ".*_ankle_pitch_.*": 35.2,
+-                ".*_ankle_roll_.*": 35.2,
+-                "j12_waist_yaw": 35.2,
+-                ".*_shoulder_.*": 35.2,
+-                ".*_elbow_.*": 35.2,
+-                "j23_head_yaw": 35.2,
+-            },
+-
+-            stiffness={
+-                ".*_hip_roll_.*":   150,    
+-                ".*_hip_yaw_.*":    150,    
+-
+-                ".*_hip_pitch_.*":  200,   
+-                ".*_knee_pitch_.*": 200,  
+-                "j12_waist_yaw":    200,
+-
+-                ".*_ankle_.*":      150,
+-                
+-                ".*_shoulder_.*":   80,
+-                ".*_elbow_.*":      80,
+-                "j23_head_yaw":     80,      
+-            },
+-            # stiffness={
+-            #     ".*_hip_roll_.*":   150,    
+-            #     ".*_hip_yaw_.*":    150,    
+-
+-            #     ".*_hip_pitch_.*":  200,   
+-            #     ".*_knee_pitch_.*": 200,  
+-            #     "j12_waist_yaw":    200,
+-
+-            #     ".*_ankle_.*":      50,
+-                
+-            #     ".*_shoulder_.*":   40,
+-            #     ".*_elbow_.*":      40,
+-            #     "j23_head_yaw":     40,      
+-            # },            
+-            damping={
+-                ".*_hip_pitch_.*":  7.0,   
+-                ".*_hip_roll_.*":   3.0,   
+-                ".*_hip_yaw_.*":    3.0,     
+-                ".*_knee_pitch_.*": 7.0,  
+-                ".*_ankle_.*":      7.0,
+-                "j12_waist_yaw":    3.0,
+-
+-                ".*_shoulder_.*":   3.0,
+-                ".*_elbow_.*":      3.0,
+-                "j23_head_yaw":     3.0,  
+-            },  
+-            armature = {
+-            ".*_hip_pitch_.*": 0.0453,
+-            ".*_hip_roll_.*": 0.0453,
+-            ".*_hip_yaw_.*": 0.0067,
+-            ".*_knee_.*": 0.0453,
+-            ".*_ankle_.*": 0.0067,
+-            ".*_waist_.*": 0.0067,
+-            ".*_shoulder_.*": 0.0067,
+-            ".*_elbow_.*": 0.0067,
+-            ".*_head_.*": 0.0067,
+-        }
+-        ),
+-
+-    },
+-)
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+index ef4a1cf..25ee41a 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+@@ -74,12 +74,10 @@ class Pm01DirctEnv(DirectRLEnv):
+         # Get specific body indices
+         self._base_id, _ = self._contact_sensor.find_bodies("link_base")
+         self._feet_ids, _ = self._contact_sensor.find_bodies(["link_ankle_roll_r", "link_ankle_roll_l"])
+-
+         self._hip_joints = [".*_hip_yaw_.*", ".*_hip_roll_.*"]
+         self._knee_joints = [".*_knee_pitch_.*"]
+         self._arm_joints = [".*_shoulder_.*", ".*_elbow_.*"]
+         self._torso_joints = ["j12_waist_yaw"]
+-
+         # self._undesired_contact_body_ids, _ = self._contact_sensor.find_bodies(".*THIGH")
+ 
+     def _setup_scene(self):
+@@ -232,7 +230,9 @@ class Pm01DirctEnv(DirectRLEnv):
+         self._previous_actions[env_ids] = 0.0
+         # Sample new commands
+         # self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
+-        self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
++        # self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
++        self._commands[env_ids, 0] = torch.tensor(0.0, device=self.device).uniform_(0.0, 1.0)
++        self._commands[env_ids, 2] = torch.tensor(0.0, device=self.device).uniform_(-1.0, 1.0)
+         # Reset robot state
+         joint_pos = self._robot.data.default_joint_pos[env_ids]
+         joint_vel = self._robot.data.default_joint_vel[env_ids]
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+index 9aa1ac2..dc40a51 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+@@ -18,8 +18,8 @@ from isaaclab.utils.noise import GaussianNoiseCfg, NoiseModelWithAdditiveBiasCfg
+ ##
+ # Pre-defined configs
+ ##
+-from .pm01 import PM01_CFG  # isort: skip
+-from isaaclab.terrains.config.rough import ROUGH_TERRAINS_CFG  # isort: skip
++from .assets.pm01 import PM01_CFG  # isort: skip
++# from .assets.pm01_engineai import  PM01_CYLINDER_CFG as PM01_CFG  # isort: skip
+ 
+ @configclass
+ class EventCfg:
+@@ -48,58 +48,58 @@ class EventCfg:
+         },
+     )
+ 
+-    # base_com = EventTerm(
+-    #     func=mdp.randomize_rigid_body_com,
+-    #     mode="startup",
+-    #     params={
+-    #         "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-    #         "com_range": {"x": (-0.05, 0.05), "y": (-0.05, 0.05), "z": (-0.01, 0.01)},
+-    #     },
+-    # )
+-
+-    # # reset
+-    # base_external_force_torque = EventTerm(
+-    #     func=mdp.apply_external_force_torque,
+-    #     mode="reset",
+-    #     params={
+-    #         "asset_cfg": SceneEntityCfg("robot", body_names="base"),
+-    #         "force_range": (0.0, 0.0),
+-    #         "torque_range": (-0.0, 0.0),
+-    #     },
+-    # )
+-
+-    # reset_base = EventTerm(
+-    #     func=mdp.reset_root_state_uniform,
+-    #     mode="reset",
+-    #     params={
+-    #         "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
+-    #         "velocity_range": {
+-    #             "x": (-0.5, 0.5),
+-    #             "y": (-0.5, 0.5),
+-    #             "z": (-0.5, 0.5),
+-    #             "roll": (-0.5, 0.5),
+-    #             "pitch": (-0.5, 0.5),
+-    #             "yaw": (-0.5, 0.5),
+-    #         },
+-    #     },
+-    # )
+-
+-    # reset_robot_joints = EventTerm(
+-    #     func=mdp.reset_joints_by_scale,
+-    #     mode="reset",
+-    #     params={
+-    #         "position_range": (0.5, 1.5),
+-    #         "velocity_range": (0.0, 0.0),
+-    #     },
+-    # )
+-
+-    # # interval
+-    # push_robot = EventTerm(
+-    #     func=mdp.push_by_setting_velocity,
+-    #     mode="interval",
+-    #     interval_range_s=(10.0, 15.0),
+-    #     params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
+-    # )
++    base_com = EventTerm(
++        func=mdp.randomize_rigid_body_com,
++        mode="startup",
++        params={
++            "asset_cfg": SceneEntityCfg("robot", body_names="link_base"),
++            "com_range": {"x": (-0.05, 0.05), "y": (-0.05, 0.05), "z": (-0.01, 0.01)},
++        },
++    )
++
++    # reset
++    base_external_force_torque = EventTerm(
++        func=mdp.apply_external_force_torque,
++        mode="reset",
++        params={
++            "asset_cfg": SceneEntityCfg("robot", body_names="link_base"),
++            "force_range": (0.0, 0.0),
++            "torque_range": (-0.0, 0.0),
++        },
++    )
++
++    reset_base = EventTerm(
++        func=mdp.reset_root_state_uniform,
++        mode="reset",
++        params={
++            "pose_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5), "yaw": (-3.14, 3.14)},
++            "velocity_range": {
++                "x": (-0.5, 0.5),
++                "y": (-0.5, 0.5),
++                "z": (-0.5, 0.5),
++                "roll": (-0.5, 0.5),
++                "pitch": (-0.5, 0.5),
++                "yaw": (-0.5, 0.5),
++            },
++        },
++    )
++
++    reset_robot_joints = EventTerm(
++        func=mdp.reset_joints_by_scale,
++        mode="reset",
++        params={
++            "position_range": (0.5, 1.5),
++            "velocity_range": (0.0, 0.0),
++        },
++    )
++
++    # interval
++    push_robot = EventTerm(
++        func=mdp.push_by_setting_velocity,
++        mode="interval",
++        interval_range_s=(10.0, 15.0),
++        params={"velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)}},
++    )
+ 
+ 
+ @configclass
+diff --git a/source/pm01_dirct/usd_model/pm01/configuration/pm01_base.usd b/source/pm01_dirct/usd_model/pm01/configuration/pm01_base.usd
+deleted file mode 100644
+index c82978f..0000000
+--- a/source/pm01_dirct/usd_model/pm01/configuration/pm01_base.usd
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:a426487b045795fe9ee9f05e1e98a4ae7db35690c207f0fad1f2f26fefce6e56
+-size 96866899
+diff --git a/source/pm01_dirct/usd_model/pm01/configuration/pm01_physics.usd b/source/pm01_dirct/usd_model/pm01/configuration/pm01_physics.usd
+deleted file mode 100644
+index 83190a5..0000000
+--- a/source/pm01_dirct/usd_model/pm01/configuration/pm01_physics.usd
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:fd2ff601919ff9fc5014b8b04bd6c4375e80a236a19a91b959a29d7c6122dad6
+-size 10504
+diff --git a/source/pm01_dirct/usd_model/pm01/configuration/pm01_robot.usd b/source/pm01_dirct/usd_model/pm01/configuration/pm01_robot.usd
+deleted file mode 100644
+index 06329af..0000000
+--- a/source/pm01_dirct/usd_model/pm01/configuration/pm01_robot.usd
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:23ddb1151b58e6533d0e2082ca4764096549b3be9e8696cbe8529db3b17083d3
+-size 2519
+diff --git a/source/pm01_dirct/usd_model/pm01/configuration/pm01_sensor.usd b/source/pm01_dirct/usd_model/pm01/configuration/pm01_sensor.usd
+deleted file mode 100644
+index 736d26e..0000000
+--- a/source/pm01_dirct/usd_model/pm01/configuration/pm01_sensor.usd
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:4795cc1604cc2137cdc9639484f4e09c150ea88e91566d0e33fbff23d136231b
+-size 644
+diff --git a/source/pm01_dirct/usd_model/pm01/pm01.usd b/source/pm01_dirct/usd_model/pm01/pm01.usd
+deleted file mode 100644
+index 0bc72d0..0000000
+--- a/source/pm01_dirct/usd_model/pm01/pm01.usd
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:44a5dd1fdb421c6fa22a34f7f0332c2298965f78ccad0483b4c32fd8b0287dc8
+-size 5783
+diff --git "a/\345\277\253\346\215\267.md" "b/\345\277\253\346\215\267.md"
+deleted file mode 100644
+index b4501f3..0000000
+--- "a/\345\277\253\346\215\267.md"
++++ /dev/null
+@@ -1,15 +0,0 @@
+-
+-
+-# 每一次使用前运行这两个命令
+-conda activate isaaclab2.3.2
+-
+-source /home/ubuntu/workspace/isaac/isaac-sim/setup_conda_env.sh
+-
+-# 训练与测试
+-python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 5000 --max_iterations 4000
+-
+-python3 scripts/rsl_rl/play.py --task=Dirct-Pm01-v0 --num_envs=8 --checkpoint 
+-
+-python3 -m tensorboard.main --logdir 
+-
+-./isaaclab.sh -p scripts/environments/export_IODescriptors.py --task=Isaac-Velocity-Flat-PM01-v0 --output_dir ./io_descriptors
