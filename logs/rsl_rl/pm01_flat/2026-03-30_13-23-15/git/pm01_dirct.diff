@@ -1,0 +1,116 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   note.md
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	logs/rsl_rl/pm01_flat/2026-03-27_13-15-19/ param
+	logs/rsl_rl/pm01_flat/2026-03-30_11-12-51/
+	logs/rsl_rl/pm01_flat/2026-03-30_11-52-48/
+	logs/rsl_rl/pm01_flat/2026-03-30_13-23-15/
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/note.md b/note.md
+index 3799492..1756789 100644
+--- a/note.md
++++ b/note.md
+@@ -6,7 +6,7 @@ conda activate isaaclab2.3.2
+ source /home/ubuntu/workspace/isaac/isaac-sim/setup_conda_env.sh
+ 
+ # 训练与测试
+-python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 10000 --max_iterations 6000
++python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 10000 --max_iterations 5000
+ 
+ python3 scripts/rsl_rl/play.py --task=Dirct-Pm01-v0 --num_envs=8 --checkpoint 
+ 
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+index be0299c..53526c2 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/agents/rsl_rl_ppo_cfg.py
+@@ -11,8 +11,8 @@ from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, R
+ @configclass
+ class PM01RoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
+     num_steps_per_env = 24
+-    max_iterations = 3000
+-    save_interval = 400
++    max_iterations = 5000
++    save_interval = 1000
+     experiment_name = "pm01_rough"
+     policy = RslRlPpoActorCriticCfg(
+         init_noise_std=1.0,
+@@ -43,7 +43,7 @@ class PM01FlatPPORunnerCfg(PM01RoughPPORunnerCfg):
+     def __post_init__(self):
+         super().__post_init__()
+ 
+-        self.max_iterations = 1000
++        # self.max_iterations = 1000
+         self.experiment_name = "pm01_flat"
+         self.policy.actor_hidden_dims = [128, 128, 128]
+         self.policy.critic_hidden_dims = [128, 128, 128]
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+index 25ee41a..ac1c6ad 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env.py
+@@ -231,7 +231,10 @@ class Pm01DirctEnv(DirectRLEnv):
+         # Sample new commands
+         # self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
+         # self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
+-        self._commands[env_ids, 0] = torch.tensor(0.0, device=self.device).uniform_(0.0, 1.0)
++        self._commands[env_ids, 0] = torch.tensor(0.0, device=self.device).uniform_(0.3, 1.0)
++        # Set some targets to zero (e.g. 10% chance)
++        zero_mask = torch.rand(len(env_ids), device=self.device) < 0.1
++        self._commands[env_ids[zero_mask], 0] = 0.0
+         self._commands[env_ids, 2] = torch.tensor(0.0, device=self.device).uniform_(-1.0, 1.0)
+         # Reset robot state
+         joint_pos = self._robot.data.default_joint_pos[env_ids]
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+index dc40a51..41eb47c 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+@@ -161,27 +161,11 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
+         bias_noise_cfg=GaussianNoiseCfg(mean=0.0, std=0.0001, operation="abs"),
+     )
+ 
+-    command_threshold = 0.1
++    command_threshold = 0.3
+     feet_air_time_threshold = 0.5
+ 
+-    # reward scales
+-    # track_lin_vel_xy_reward_scale = 1.75
+-    # track_ang_vel__reward_scale = 0.5
+-    # lin_vel_z_l2_reward_scale = -2.0
+-    # ang_vel_reward_scale = -0.05
+-    # joint_torque_reward_scale = -1e-5
+-    # joint_accel_reward_scale = -2.5e-6
+-    # action_rate_reward_scale = -0.1
+-    # feet_air_time_reward_scale = 0.3
+-    # flat_orientation_reward_scale = -1.5
+-    # feet_slide_reward_scale = -0.5    
+-    # joint_deviation_hip_reward_scale = -0.1
+-    # joint_deviation_knee_reward_scale = -0.1
+-    # joint_deviation_arms_reward_scale = -0.5
+-    # joint_deviation_torso_reward_scale = -0.3
+-    # stand_still = -1.0
+     track_lin_vel_xy_reward_scale = 1.0
+-    track_ang_vel__reward_scale = 0.5
++    track_ang_vel__reward_scale = 1.0   #0.5
+     lin_vel_z_l2_reward_scale = -2.0
+     ang_vel_reward_scale = -0.05
+     joint_torque_reward_scale = -2e-5
+@@ -194,4 +178,4 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
+     joint_deviation_knee_reward_scale = -0.01
+     joint_deviation_arms_reward_scale = -0.1
+     joint_deviation_torso_reward_scale = -0.01
+-    stand_still = 0
++    stand_still = -1.0

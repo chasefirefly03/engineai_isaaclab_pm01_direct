@@ -6,7 +6,7 @@ conda activate isaaclab2.3.2
 source /home/ubuntu/workspace/isaac/isaac-sim/setup_conda_env.sh
 
 # 训练与测试
-python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 10000 --max_iterations 6000
+python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 10000 --max_iterations 4000
 
 python3 scripts/rsl_rl/play.py --task=Dirct-Pm01-v0 --num_envs=8 --checkpoint 
 

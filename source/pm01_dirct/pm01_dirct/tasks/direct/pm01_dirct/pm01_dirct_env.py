@@ -186,7 +186,7 @@ class Pm01DirctEnv(DirectRLEnv):
         #stand_still
         angle = asset.data.joint_pos - asset.data.default_joint_pos
         joint_deviation_l1 = torch.sum(torch.abs(angle), dim=1)
-        stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :2], dim=1) < self.cfg.command_threshold)
+        stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :3], dim=1) < self.cfg.command_threshold)
         
         rewards = {
             "track_lin_vel_xy_exp": lin_vel_error_mapped * self.cfg.track_lin_vel_xy_reward_scale * self.step_dt,
@@ -228,10 +228,11 @@ class Pm01DirctEnv(DirectRLEnv):
             self.episode_length_buf[:] = torch.randint_like(self.episode_length_buf, high=int(self.max_episode_length))
         self._actions[env_ids] = 0.0
         self._previous_actions[env_ids] = 0.0
-        # Sample new commands
-        # self._commands[env_ids] = torch.zeros_like(self._commands[env_ids]).uniform_(-1.0, 1.0)
-        # self._commands[env_ids] = torch.tensor([0.7, 0.0, 0.0], device=self.device)
-        self._commands[env_ids, 0] = torch.tensor(0.0, device=self.device).uniform_(0.0, 1.0)
+        # Command
+        self._commands[env_ids, 0] = torch.tensor(0.0, device=self.device).uniform_(0.4, 1.0)
+        # Set some targets to zero (10% chance)
+        zero_mask = torch.rand(len(env_ids), device=self.device) < 0.1
+        self._commands[env_ids[zero_mask], 0] = 0.0
         self._commands[env_ids, 2] = torch.tensor(0.0, device=self.device).uniform_(-1.0, 1.0)
         # Reset robot state
         joint_pos = self._robot.data.default_joint_pos[env_ids]
