@@ -13,3 +13,6 @@ python3 scripts/rsl_rl/play.py --task=Dirct-Pm01-v0 --num_envs=8 --checkpoint
 python3 -m tensorboard.main --logdir 
 
 ./isaaclab.sh -p scripts/environments/export_IODescriptors.py --task=Isaac-Velocity-Flat-PM01-v0 --output_dir ./io_descriptors
+
+# 存在的问题
+1. 添加stand_still之后，无法在原地旋转

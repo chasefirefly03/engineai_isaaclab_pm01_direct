@@ -139,7 +139,7 @@ class Pm01DirctEnv(DirectRLEnv):
         # angular velocity x/y
         ang_vel_error = torch.sum(torch.square(self._robot.data.root_ang_vel_b[:, :2]), dim=1)
         # joint torques
-        joint_torques = torch.sum(torch.square(self._robot.data.applied_torque), dim=1)
+        joint_torques = torch.sum(torch.square(self._robot. data.applied_torque), dim=1)
         # joint acceleration
         joint_accel = torch.sum(torch.square(self._robot.data.joint_acc), dim=1)
         # action rate
@@ -148,7 +148,8 @@ class Pm01DirctEnv(DirectRLEnv):
         first_contact = self._contact_sensor.compute_first_contact(self.step_dt)[:, self._feet_ids]
         last_air_time = self._contact_sensor.data.last_air_time[:, self._feet_ids]
         air_time = torch.sum((last_air_time - self.cfg.feet_air_time_threshold) * first_contact, dim=1) * (
-            torch.norm(self._commands[:, :2], dim=1) > 0.1
+            # torch.norm(self._commands[:, :2], dim=1) > 0.1
+            torch.norm(self._commands[:, :3], dim=1) > 0.1
         )
         # undesired contacts
         # net_contact_forces = self._contact_sensor.data.net_forces_w_history
@@ -186,6 +187,7 @@ class Pm01DirctEnv(DirectRLEnv):
         #stand_still
         angle = asset.data.joint_pos - asset.data.default_joint_pos
         joint_deviation_l1 = torch.sum(torch.abs(angle), dim=1)
+        # stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :2], dim=1) < self.cfg.command_threshold)
         stand_still = joint_deviation_l1 * (torch.norm(self._commands[:, :3], dim=1) < self.cfg.command_threshold)
         
         rewards = {
