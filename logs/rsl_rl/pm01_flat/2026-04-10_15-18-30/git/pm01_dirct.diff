@@ -1,0 +1,30 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	logs/rsl_rl/pm01_flat/2026-04-10_15-18-30/
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+index 624eb3e..b3ceb1a 100644
+--- a/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
++++ b/source/pm01_dirct/pm01_dirct/tasks/direct/pm01_dirct/pm01_dirct_env_cfg.py
+@@ -165,7 +165,7 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
+     feet_air_time_threshold = 0.5
+ 
+     track_lin_vel_xy_reward_scale = 1.25
+-    track_ang_vel__reward_scale = 2.0   #1.0
++    track_ang_vel__reward_scale = 1.0   #1.0
+     lin_vel_z_l2_reward_scale = -2.0
+     ang_vel_reward_scale = -0.05
+     joint_torque_reward_scale = -2e-5

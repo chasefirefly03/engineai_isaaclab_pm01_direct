@@ -165,7 +165,7 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
     feet_air_time_threshold = 0.5
 
     track_lin_vel_xy_reward_scale = 1.25
-    track_ang_vel__reward_scale = 2.0   #1.0
+    track_ang_vel__reward_scale = 1.0   #1.0
     lin_vel_z_l2_reward_scale = -2.0
     ang_vel_reward_scale = -0.05
     joint_torque_reward_scale = -2e-5
