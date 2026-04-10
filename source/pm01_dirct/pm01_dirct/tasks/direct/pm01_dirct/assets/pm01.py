@@ -110,7 +110,6 @@ PM01_CFG = ArticulationCfg(
                 ".*_elbow_.*": 35.2,
                 "j23_head_yaw": 35.2,
             },
-
             # stiffness={
             #     ".*_hip_roll_.*":   150,    
             #     ".*_hip_yaw_.*":    150,    
@@ -133,12 +132,12 @@ PM01_CFG = ArticulationCfg(
                 ".*_knee_pitch_.*": 200,  
                 "j12_waist_yaw":    200,
 
-                ".*_ankle_.*":      40,
+                ".*_ankle_.*":      50,
                 
                 ".*_shoulder_.*":   40,
                 ".*_elbow_.*":      40,
-                "j23_head_yaw":     40,
-            }, 
+                "j23_head_yaw":     40,      
+            },            
             damping={
                 ".*_hip_pitch_.*":  7.0,   
                 ".*_hip_roll_.*":   3.0,   

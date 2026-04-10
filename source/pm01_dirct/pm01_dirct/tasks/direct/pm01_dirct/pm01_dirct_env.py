@@ -10,7 +10,6 @@ import torch
 from collections.abc import Sequence
 import gymnasium as gym
 
-
 import isaaclab.sim as sim_utils
 from isaaclab.assets import Articulation
 from isaaclab.envs import DirectRLEnv

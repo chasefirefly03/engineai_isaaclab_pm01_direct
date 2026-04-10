@@ -164,7 +164,7 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
     command_threshold = 0.4
     feet_air_time_threshold = 0.5
 
-    track_lin_vel_xy_reward_scale = 1.0
+    track_lin_vel_xy_reward_scale = 1.25
     track_ang_vel__reward_scale = 2.0   #1.0
     lin_vel_z_l2_reward_scale = -2.0
     ang_vel_reward_scale = -0.05
@@ -174,7 +174,7 @@ class Pm01DirctFaltEnvCfg(DirectRLEnvCfg):
     feet_air_time_reward_scale = 0.5
     flat_orientation_reward_scale = -5.0
     feet_slide_reward_scale = -0.2    
-    joint_deviation_hip_reward_scale = -0.1
+    joint_deviation_hip_reward_scale = -0.3
     joint_deviation_knee_reward_scale = -0.01
     joint_deviation_arms_reward_scale = -0.1
     joint_deviation_torso_reward_scale = -0.01

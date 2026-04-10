@@ -1,3 +1,34 @@
+> isaaclab 2.3.2
+> isaacsim 5.1.0
+# Training
+- Running a task:
+
+    ```bash
+    # use 'FULL_PATH_TO_isaaclab.sh|bat -p' instead of 'python' if Isaac Lab is not installed in Python venv or conda
+    python3 scripts/rsl_rl/train.py --task=Dirct-Pm01-v0 --num_envs=4096 --headless --video --video_length 200 --video_interval 10000 --max_iterations 4000
+    ```
+
+- Play a task:
+
+    ```bash
+    # use 'FULL_PATH_TO_isaaclab.sh|bat -p' instead of 'python' if Isaac Lab is not installed in Python venv or conda
+    python3 scripts/rsl_rl/play.py --task=Dirct-Pm01-v0 --num_envs=8 --checkpoint=<path_to_checkpoint>
+    ```
+
+# Sim2Sim
+Code can be found in my repository [engineai_pm01_mujoco_sim2sim](github.com/chasefirefly03/engineai_pm01_mujoco_sim2sim/tree/master).
+You can directly copy the checkpoint to directory and run `python3 pm01_deploy/script/deploy_mujoco_base.py --config_file pm01_deploy/config/param/pm01_mujoco_base.yaml --policy_file <file>`.Make sure you checked the path to the configs before running.
+
+Additionally,I provided a further means to sim2sim.
+
+Firstly,open the simulation:`ros2 launch mujoco_simulator mujoco_simulator.launch.py`.
+
+And then,run `ros2 run pm01_deploy pm01_controller --ros-args -p config_file:=/src/pm01_deploy/config/pm01.yaml`.
+
+If robot falling down,you may press `restart` in Mujoco.
+
+# Sim2Real
+Code can be found in my repository [engineai_pm01_mujoco_sim2sim](github.com/chasefirefly03/engineai_pm01_mujoco_sim2sim/tree/master)/src/pm01_deploy/src/pm01_controller.cpp.
 # Template for Isaac Lab Projects
 
 ## Overview
